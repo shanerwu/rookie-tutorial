@@ -1,7 +1,6 @@
 package org.tutorial.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.tutorial.dao.DeptDAO;
 import org.tutorial.dao.impl.DeptDAOImpl;
@@ -18,16 +17,6 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public List<DeptVO> getAll() {
-        return dao.getAll();
-    }
-
-    @Override
-    public DeptVO getOneDept(Integer deptno) {
-        return dao.findByPrimaryKey(deptno);
-    }
-
-    @Override
     public DeptVO update(Integer deptno, String dname, String loc) {
         DeptVO deptVO = new DeptVO();
         deptVO.setDeptno(deptno);
@@ -38,7 +27,17 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public Set<EmpVO> getEmpsByDeptno(Integer deptno) {
+    public List<DeptVO> getAll() {
+        return dao.getAll();
+    }
+
+    @Override
+    public DeptVO getOneDept(Integer deptno) {
+        return dao.findByPrimaryKey(deptno);
+    }
+
+    @Override
+    public List<EmpVO> getEmpsByDeptno(Integer deptno) {
         return dao.getEmpsByDeptno(deptno);
     }
 

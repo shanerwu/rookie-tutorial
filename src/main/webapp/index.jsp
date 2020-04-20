@@ -6,7 +6,7 @@
 </head>
 <body>
     <div>
-        <h2>IBM Emp: JDBC</h2>
+        <h2>IBM Emp: JPA</h2>
     </div>
     <div>
         <h3>員工資料查詢</h3>

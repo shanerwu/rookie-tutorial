@@ -1,7 +1,6 @@
 package org.tutorial.dao.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,8 +61,8 @@ public class DeptDAOImplTest {
 
     @Test
     public void getEmpsByDeptno() {
-        Set<EmpVO> set = dao.getEmpsByDeptno(10);
-        for (EmpVO aEmp : set) {
+        List<EmpVO> list = dao.getEmpsByDeptno(20);
+        for (EmpVO aEmp : list) {
             System.out.print(aEmp.getEmpno() + ",");
             System.out.print(aEmp.getEname() + ",");
             System.out.print(aEmp.getJob() + ",");
@@ -74,4 +73,19 @@ public class DeptDAOImplTest {
             System.out.println();
         }
     }
+
+    @Test
+    public void findByCriteria() {
+        DeptVO deptVO = new DeptVO();
+        deptVO.setLoc("臺灣");
+        deptVO.setDname("研發部");
+        dao.findByCriteria(deptVO)
+                .forEach(dept -> {
+                    System.out.print(dept.getDeptno() + ",");
+                    System.out.print(dept.getDname() + ",");
+                    System.out.print(dept.getLoc());
+                    System.out.println();
+                });
+    }
+
 }

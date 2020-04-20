@@ -3,7 +3,6 @@ package org.tutorial.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,10 +41,10 @@ public class DeptServlet extends HttpServlet {
 
                 //2.開始查詢資料
                 DeptService deptSvc = new DeptServiceImpl();
-                Set<EmpVO> set = deptSvc.getEmpsByDeptno(deptno);
+                List<EmpVO> list = deptSvc.getEmpsByDeptno(deptno);
 
                 //3.查詢完成,準備轉交(Send the Success view)
-                req.setAttribute("listEmps_ByDeptno", set); // 資料庫取出的set物件,存入request
+                req.setAttribute("listEmps_ByDeptno", list); // 資料庫取出的list物件,存入request
 
                 String url = null;
                 if ("listEmps_ByDeptno_A".equals(action))

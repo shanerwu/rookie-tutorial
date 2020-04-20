@@ -1,5 +1,6 @@
 package org.tutorial.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.tutorial.dao.EmpDAO;
@@ -16,7 +17,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public EmpVO addEmp(String ename, String job, java.sql.Date hiredate,
+    public EmpVO addEmp(String ename, String job, LocalDate hiredate,
                         Double sal, Double comm, Integer deptno) {
 
         EmpVO empVO = new EmpVO();
@@ -34,7 +35,7 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public EmpVO updateEmp(Integer empno, String ename, String job,
-                           java.sql.Date hiredate, Double sal, Double comm, Integer deptno) {
+                           LocalDate hiredate, Double sal, Double comm, Integer deptno) {
 
         EmpVO empVO = new EmpVO();
 

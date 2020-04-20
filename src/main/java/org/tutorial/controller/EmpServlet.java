@@ -1,6 +1,7 @@
 package org.tutorial.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -144,11 +145,11 @@ public class EmpServlet extends HttpServlet {
                 }
 
                 String job = req.getParameter("job").trim();
-                java.sql.Date hiredate = null;
+                LocalDate hiredate = null;
                 try {
-                    hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
+                    hiredate = LocalDate.parse(req.getParameter("hiredate").trim());
                 } catch (IllegalArgumentException e) {
-                    hiredate=new java.sql.Date(System.currentTimeMillis());
+                    hiredate = LocalDate.now();
                     errorMsgs.add("請輸入日期!");
                 }
 
@@ -225,11 +226,11 @@ public class EmpServlet extends HttpServlet {
                 }
 
                 String job = req.getParameter("job").trim();
-                java.sql.Date hiredate = null;
+                LocalDate hiredate = null;
                 try {
-                    hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
+                    hiredate = LocalDate.parse(req.getParameter("hiredate").trim());
                 } catch (IllegalArgumentException e) {
-                    hiredate=new java.sql.Date(System.currentTimeMillis());
+                    hiredate = LocalDate.now();
                     errorMsgs.add("請輸入日期!");
                 }
 

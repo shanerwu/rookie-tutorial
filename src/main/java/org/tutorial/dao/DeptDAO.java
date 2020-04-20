@@ -1,7 +1,6 @@
 package org.tutorial.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
@@ -18,6 +17,8 @@ public interface DeptDAO {
 
     List<DeptVO> getAll();
 
-    Set<EmpVO> getEmpsByDeptno(Integer deptno);
+    List<EmpVO> getEmpsByDeptno(Integer deptno);
+
+    List<DeptVO> findByCriteria(DeptVO deptVO);
 
 }

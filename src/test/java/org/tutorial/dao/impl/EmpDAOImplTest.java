@@ -1,5 +1,6 @@
 package org.tutorial.dao.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class EmpDAOImplTest {
         EmpVO empVO = new EmpVO();
         empVO.setEname("王小明1");
         empVO.setJob("manager");
-        empVO.setHiredate(java.sql.Date.valueOf("2020-04-01"));
+        empVO.setHiredate(LocalDate.parse("2020-04-01"));
         empVO.setSal(new Double(50000));
         empVO.setComm(new Double(500));
         empVO.setDeptno(10);
@@ -34,7 +35,7 @@ public class EmpDAOImplTest {
         empVO.setEmpno(7001);
         empVO.setEname("王小明2");
         empVO.setJob("manager2");
-        empVO.setHiredate(java.sql.Date.valueOf("2020-04-01"));
+        empVO.setHiredate(LocalDate.parse(("2020-04-01")));
         empVO.setSal(new Double(20000));
         empVO.setComm(new Double(200));
         empVO.setDeptno(20);
