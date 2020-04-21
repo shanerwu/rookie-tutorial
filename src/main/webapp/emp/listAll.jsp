@@ -2,10 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>全部員工資料</title>
+    <title>所有員工資料</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
 </head>
 <body>
+    <h3>所有員工資料</h3>
     <c:if test="${not empty errorMsgs}">
         <font color='red'>請修正以下錯誤:
             <ul>
@@ -15,7 +16,6 @@
             </ul>
         </font>
     </c:if>
-    <jsp:useBean id="deptSvc" scope="page" class="org.tutorial.service.impl.DeptServiceImpl" />
     <jsp:useBean id="empSvc" scope="page" class="org.tutorial.service.impl.EmpServiceImpl" />
     <table>
         <tr>
@@ -37,13 +37,7 @@
                 <td>${empVO.hiredate}</td>
                 <td>${empVO.sal}</td>
                 <td>${empVO.comm}</td>
-                <td>${empVO.deptno}
-                    <c:forEach var="deptVO" items="${deptSvc.all}">
-                        <c:if test="${empVO.deptno==deptVO.deptno}">
-                            【${deptVO.dname} - ${deptVO.loc}】
-                        </c:if>
-                    </c:forEach>
-                </td>
+                <td>${empVO.deptVO.deptno}【${empVO.deptVO.dname} - ${empVO.deptVO.loc}】</td>
                 <td>
                     <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do">
                         <input type="submit" value="修改">
@@ -61,7 +55,7 @@
             </tr>
         </c:forEach>
     </table>
-    <br>
+    <br />
     <a href="${pageContext.request.contextPath}/index.jsp">回首頁</a>
 </body>
 </html>

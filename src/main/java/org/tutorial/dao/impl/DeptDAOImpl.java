@@ -15,7 +15,6 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.tutorial.dao.DeptDAO;
 import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
 import org.tutorial.utils.JPAUtil;
 
 public class DeptDAOImpl implements DeptDAO {
@@ -89,15 +88,6 @@ public class DeptDAOImpl implements DeptDAO {
 //        Query query = entityManager.createQuery("select dept from DeptVO dept");
         //Native Query
 //        Query query = entityManager.createNativeQuery("select * from dept2", DeptVO.class);
-        return query.getResultList();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<EmpVO> getEmpsByDeptno(Integer deptno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        Query query = entityManager.createQuery("select emp from EmpVO emp where emp.deptno = :deptno");
-        query.setParameter("deptno", deptno);
         return query.getResultList();
     }
 

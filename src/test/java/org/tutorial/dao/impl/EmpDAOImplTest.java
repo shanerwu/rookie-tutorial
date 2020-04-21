@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.tutorial.dao.EmpDAO;
+import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 
 public class EmpDAOImplTest {
@@ -25,7 +26,9 @@ public class EmpDAOImplTest {
         empVO.setHiredate(LocalDate.parse("2020-04-01"));
         empVO.setSal(new Double(50000));
         empVO.setComm(new Double(500));
-        empVO.setDeptno(10);
+        DeptVO deptVO = new DeptVO();
+        deptVO.setDeptno(40);
+        empVO.setDeptVO(deptVO);
         dao.insert(empVO);
     }
 
@@ -35,10 +38,12 @@ public class EmpDAOImplTest {
         empVO.setEmpno(7001);
         empVO.setEname("王小明2");
         empVO.setJob("manager2");
-        empVO.setHiredate(LocalDate.parse(("2020-04-01")));
+        empVO.setHiredate(LocalDate.parse("2020-04-01"));
         empVO.setSal(new Double(20000));
         empVO.setComm(new Double(200));
-        empVO.setDeptno(20);
+        DeptVO deptVO = new DeptVO();
+        deptVO.setDeptno(40);
+        empVO.setDeptVO(deptVO);
         dao.update(empVO);
     }
 
@@ -56,7 +61,9 @@ public class EmpDAOImplTest {
         System.out.print(empVO.getHiredate() + ",");
         System.out.print(empVO.getSal() + ",");
         System.out.print(empVO.getComm() + ",");
-        System.out.println(empVO.getDeptno());
+        System.out.print(empVO.getDeptVO().getDeptno() + ",");
+        System.out.print(empVO.getDeptVO().getDname() + ",");
+        System.out.println(empVO.getDeptVO().getLoc());
         System.out.println("---------------------");
     }
 
@@ -70,7 +77,9 @@ public class EmpDAOImplTest {
             System.out.print(aEmp.getHiredate() + ",");
             System.out.print(aEmp.getSal() + ",");
             System.out.print(aEmp.getComm() + ",");
-            System.out.print(aEmp.getDeptno());
+            System.out.print(aEmp.getDeptVO().getDeptno() + ",");
+            System.out.print(aEmp.getDeptVO().getDname() + ",");
+            System.out.print(aEmp.getDeptVO().getLoc());
             System.out.println();
         }
     }

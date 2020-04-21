@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.tutorial.dao.EmpDAO;
 import org.tutorial.dao.impl.EmpDAOImpl;
+import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 import org.tutorial.service.EmpService;
 
@@ -27,7 +28,9 @@ public class EmpServiceImpl implements EmpService {
         empVO.setHiredate(hiredate);
         empVO.setSal(sal);
         empVO.setComm(comm);
-        empVO.setDeptno(deptno);
+        DeptVO deptVO = new DeptVO();
+        deptVO.setDeptno(deptno);
+        empVO.setDeptVO(deptVO);
         dao.insert(empVO);
 
         return empVO;
@@ -45,7 +48,9 @@ public class EmpServiceImpl implements EmpService {
         empVO.setHiredate(hiredate);
         empVO.setSal(sal);
         empVO.setComm(comm);
-        empVO.setDeptno(deptno);
+        DeptVO deptVO = new DeptVO();
+        deptVO.setDeptno(deptno);
+        empVO.setDeptVO(deptVO);
         dao.update(empVO);
 
         return dao.findByPrimaryKey(empno);

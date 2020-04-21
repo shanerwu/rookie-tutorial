@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 import org.tutorial.service.EmpService;
 import org.tutorial.service.impl.EmpServiceImpl;
@@ -31,7 +32,6 @@ public class EmpServlet extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
-
 
         if ("getOne_For_Display".equals(action)) {
 
@@ -140,8 +140,8 @@ public class EmpServlet extends HttpServlet {
                 }
                 //以下練習正則(規)表示式(regular-expression)
                 String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-                if(!ename.trim().matches(enameReg) ) {
-                    errorMsgs.add("員工姓名:只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+                if (!ename.trim().matches(enameReg)) {
+                    errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
                 }
 
                 String job = req.getParameter("job").trim();
@@ -178,7 +178,9 @@ public class EmpServlet extends HttpServlet {
                 empVO.setHiredate(hiredate);
                 empVO.setSal(sal);
                 empVO.setComm(comm);
-                empVO.setDeptno(deptno);
+                DeptVO deptVO = new DeptVO();
+                deptVO.setDeptno(deptno);
+                empVO.setDeptVO(deptVO);
 
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
@@ -258,7 +260,9 @@ public class EmpServlet extends HttpServlet {
                 empVO.setHiredate(hiredate);
                 empVO.setSal(sal);
                 empVO.setComm(comm);
-                empVO.setDeptno(deptno);
+                DeptVO deptVO = new DeptVO();
+                deptVO.setDeptno(deptno);
+                empVO.setDeptVO(deptVO);
 
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {

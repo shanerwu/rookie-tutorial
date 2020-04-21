@@ -38,7 +38,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public List<EmpVO> getEmpsByDeptno(Integer deptno) {
-        return dao.getEmpsByDeptno(deptno);
+        return dao.findByPrimaryKey(deptno).getEmpVOs();
     }
 
     @Override

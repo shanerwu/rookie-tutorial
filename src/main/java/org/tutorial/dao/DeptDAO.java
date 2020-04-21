@@ -3,7 +3,6 @@ package org.tutorial.dao;
 import java.util.List;
 
 import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
 
 public interface DeptDAO {
 
@@ -16,8 +15,6 @@ public interface DeptDAO {
     DeptVO findByPrimaryKey(Integer deptno);
 
     List<DeptVO> getAll();
-
-    List<EmpVO> getEmpsByDeptno(Integer deptno);
 
     List<DeptVO> findByCriteria(DeptVO deptVO);
 

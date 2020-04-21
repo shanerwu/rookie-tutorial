@@ -24,17 +24,10 @@
             <td>${empVO.hiredate}</td>
             <td>${empVO.sal}</td>
             <td>${empVO.comm}</td>
-            <td>${empVO.deptno}
-                <jsp:useBean id="deptSvc" scope="page" class="org.tutorial.service.impl.DeptServiceImpl" />
-                <c:forEach var="deptVO" items="${deptSvc.all}">
-                    <c:if test="${empVO.deptno==deptVO.deptno}">
-                        【${deptVO.dname} - ${deptVO.loc}】
-                    </c:if>
-                </c:forEach>
-            </td>
+            <td>${empVO.deptVO.deptno}【${empVO.deptVO.dname} - ${empVO.deptVO.loc}】</td>
         </tr>
     </table>
-    <br>
+    <br />
     <a href="${pageContext.request.contextPath}/index.jsp">回首頁</a>
 </body>
 </html>

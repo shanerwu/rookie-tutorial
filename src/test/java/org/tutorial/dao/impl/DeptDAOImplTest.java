@@ -54,23 +54,16 @@ public class DeptDAOImplTest {
         for (DeptVO aDept : list) {
             System.out.print(aDept.getDeptno() + ",");
             System.out.print(aDept.getDname() + ",");
-            System.out.print(aDept.getLoc());
-            System.out.println();
-        }
-    }
-
-    @Test
-    public void getEmpsByDeptno() {
-        List<EmpVO> list = dao.getEmpsByDeptno(20);
-        for (EmpVO aEmp : list) {
-            System.out.print(aEmp.getEmpno() + ",");
-            System.out.print(aEmp.getEname() + ",");
-            System.out.print(aEmp.getJob() + ",");
-            System.out.print(aEmp.getHiredate() + ",");
-            System.out.print(aEmp.getSal() + ",");
-            System.out.print(aEmp.getComm() + ",");
-            System.out.print(aEmp.getDeptno());
-            System.out.println();
+            System.out.println(aDept.getLoc() + ": ");
+            for (EmpVO aEmp : aDept.getEmpVOs()) {
+                System.out.print(aEmp.getEmpno() + ",");
+                System.out.print(aEmp.getEname() + ",");
+                System.out.print(aEmp.getJob() + ",");
+                System.out.print(aEmp.getHiredate() + ",");
+                System.out.print(aEmp.getSal() + ",");
+                System.out.println(aEmp.getComm());
+            }
+            System.out.println("---------------------");
         }
     }
 

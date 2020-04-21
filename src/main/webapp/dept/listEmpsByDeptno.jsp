@@ -39,13 +39,8 @@
                 <td>${empVO.hiredate}</td>
                 <td>${empVO.sal}</td>
                 <td>${empVO.comm}</td>
-                <td>${empVO.deptno}
-                    <jsp:useBean id="deptSvc" scope="page" class="org.tutorial.service.impl.DeptServiceImpl" />
-                    <c:forEach var="deptVO" items="${deptSvc.all}">
-                        <c:if test="${empVO.deptno==deptVO.deptno}">
-                            ¡i${deptVO.dname} - ${deptVO.loc}¡j
-                        </c:if>
-                    </c:forEach>
+                <td>
+                    ${empVO.deptVO.deptno}¡i<font color=red>${empVO.deptVO.dname}</font> - ${empVO.deptVO.loc}¡j
                 </td>
                 <td>
                     <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do">
