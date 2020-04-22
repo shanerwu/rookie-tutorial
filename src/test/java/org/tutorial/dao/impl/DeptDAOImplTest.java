@@ -2,20 +2,21 @@ package org.tutorial.dao.impl;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.tutorial.dao.DeptDAO;
 import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class DeptDAOImplTest {
 
+    @Autowired
     private DeptDAO dao;
-
-    @Before
-    public void init() {
-        dao = new DeptDAOImpl();
-    }
 
     @Test
     public void insert() {
@@ -42,10 +43,10 @@ public class DeptDAOImplTest {
     @Test
     public void findByPrimaryKey() {
         DeptVO deptVO = dao.findByPrimaryKey(10);
-		System.out.print(deptVO.getDeptno() + ",");
-		System.out.print(deptVO.getDname() + ",");
-		System.out.println(deptVO.getLoc());
-		System.out.println("---------------------");
+        System.out.print(deptVO.getDeptno() + ",");
+        System.out.print(deptVO.getDname() + ",");
+        System.out.println(deptVO.getLoc());
+        System.out.println("---------------------");
     }
 
     @Test

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +37,6 @@ public class DeptVO implements Serializable {
     @Column(name = "LOC", columnDefinition = "VARCHAR2(13 CHAR)")
     private String loc;
 
-    @OneToMany(mappedBy = "deptVO", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "deptVO", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<EmpVO> empVOs;
 }

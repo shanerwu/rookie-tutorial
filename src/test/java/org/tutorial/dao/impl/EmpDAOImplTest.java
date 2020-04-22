@@ -3,20 +3,21 @@ package org.tutorial.dao.impl;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.tutorial.dao.EmpDAO;
 import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class EmpDAOImplTest {
 
+    @Autowired
     private EmpDAO dao;
-
-    @Before
-    public void init() {
-        dao = new EmpDAOImpl();
-    }
 
     @Test
     public void insert() {

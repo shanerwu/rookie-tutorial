@@ -3,71 +3,47 @@ package org.tutorial.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.dao.EmpDAO;
 import org.tutorial.model.EmpVO;
-import org.tutorial.utils.JPAUtil;
 
+@Repository
 public class EmpDAOImpl implements EmpDAO {
 
+    @PersistenceContext
+    protected EntityManager entityManager;
+
     @Override
+    @Transactional
     public void insert(EmpVO empVO) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(empVO);
-            transaction.commit();
-            entityManager.close();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        }
+        entityManager.persist(empVO);
     }
 
     @Override
+    @Transactional
     public void update(EmpVO empVO) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(empVO);
-            transaction.commit();
-            entityManager.close();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        }
+        entityManager.merge(empVO);
     }
 
     @Override
+    @Transactional
     public void delete(Integer empno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            EmpVO empVO = entityManager.find(EmpVO.class, empno);
-            entityManager.remove(empVO);
-            transaction.commit();
-            entityManager.close();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        }
+        EmpVO empVO = entityManager.find(EmpVO.class, empno);
+        entityManager.remove(empVO);
     }
 
     @Override
     public EmpVO findByPrimaryKey(Integer empno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         return entityManager.find(EmpVO.class, empno);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<EmpVO> getAll() {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         //Name Query
         Query query = entityManager.createNamedQuery("emp.all");
         //JPQL Query

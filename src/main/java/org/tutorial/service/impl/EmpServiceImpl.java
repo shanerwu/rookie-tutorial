@@ -3,8 +3,8 @@ package org.tutorial.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.dao.impl.EmpDAOImpl;
 import org.tutorial.model.DeptVO;
 import org.tutorial.model.EmpVO;
 import org.tutorial.service.EmpService;
@@ -14,7 +14,10 @@ public class EmpServiceImpl implements EmpService {
     private EmpDAO dao;
 
     public EmpServiceImpl() {
-        dao = new EmpDAOImpl();
+        //  dao = new EmpDAOImpl();
+        // 將物件生成交由 Spring 管理
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        dao = context.getBean("empDAOImpl", EmpDAO.class);
     }
 
     @Override
