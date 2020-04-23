@@ -31,7 +31,7 @@
                 <td>${empVO.sal}</td>
                 <td>${empVO.comm}</td>
                 <td>
-                    ${empVO.deptDO.deptno}【<font color=red>${empVO.deptDO.dname}</font> - ${empVO.deptDO.loc}】
+                    ${empVO.deptVO.deptno}【<font color=red>${empVO.deptVO.dname}</font> - ${empVO.deptVO.loc}】
                 </td>
                 <td>
                     <form method="POST" action="${pageContext.request.contextPath}/emp/getOne_For_Update">

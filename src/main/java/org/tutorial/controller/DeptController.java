@@ -1,5 +1,6 @@
 package org.tutorial.controller;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
 import org.tutorial.model.vo.DeptVO;
+import org.tutorial.model.vo.EmpVO;
 import org.tutorial.service.DeptService;
 
 @Controller
@@ -25,7 +27,7 @@ public class DeptController {
     @GetMapping("/dept/listAll")
     public String listAll(Model model) {
         List<DeptDO> deptDOs = deptService.getAll();
-        List<DeptVO> deptVOS = transformVOs(deptDOs);
+        List<DeptVO> deptVOS = transformDeptVOs(deptDOs);
         model.addAttribute("deptVOS", deptVOS);
         return "dept/listAll";
     }
@@ -43,8 +45,8 @@ public class DeptController {
         ModelAndView modelAndView = new ModelAndView();
         List<DeptDO> deptDOs = deptService.getAll();
         List<EmpDO> empDOs = deptService.getEmpsByDeptno(deptno);
-        modelAndView.addObject("deptVOS", transformVOs(deptDOs));
-        modelAndView.addObject("listEmps_ByDeptno", empDOs);
+        modelAndView.addObject("deptVOS", transformDeptVOs(deptDOs));
+        modelAndView.addObject("listEmps_ByDeptno", transformEmpVOs(empDOs));
         modelAndView.setViewName("dept/listAll");
         return modelAndView;
     }
@@ -52,7 +54,7 @@ public class DeptController {
     @PostMapping("/dept/getOne_For_Update_Dept")
     public String getOneForUpdate(Model model, Integer deptno) {
         DeptDO deptDO = deptService.getOneDept(deptno);
-        DeptVO deptVO = transformVO(deptDO);
+        DeptVO deptVO = transformDeptVO(deptDO);
         model.addAttribute("deptVO", deptVO);
         return "dept/update";
     }
@@ -60,7 +62,7 @@ public class DeptController {
     @PostMapping("/dept/update")
     public String update(Model model, @ModelAttribute("deptVO") DeptVO deptVO) {
         DeptDO updatedDeptDO = deptService.update(deptVO.getDeptno(), deptVO.getDname(), deptVO.getLoc());
-        model.addAttribute("deptVO", transformVO(updatedDeptDO));
+        model.addAttribute("deptVO", transformDeptVO(updatedDeptDO));
         return "dept/listOne";
     }
 
@@ -70,19 +72,39 @@ public class DeptController {
         return "redirect:/dept/listAll";
     }
 
-    private List<DeptVO> transformVOs(List<DeptDO> deptDOs) {
+    private List<DeptVO> transformDeptVOs(List<DeptDO> deptDOs) {
         return deptDOs
                 .stream()
-                .map(this::transformVO)
+                .map(this::transformDeptVO)
                 .collect(Collectors.toList());
     }
 
-    private DeptVO transformVO(DeptDO deptDO) {
+    private DeptVO transformDeptVO(DeptDO deptDO) {
         DeptVO deptVO = new DeptVO();
         deptVO.setDeptno(deptDO.getDeptno());
         deptVO.setDname(deptDO.getDname());
         deptVO.setLoc(deptDO.getLoc());
         return deptVO;
+    }
+
+    private List<EmpVO> transformEmpVOs(List<EmpDO> empDOs) {
+        return empDOs
+                .stream()
+                .map(empDO -> {
+                    EmpVO empVO = new EmpVO();
+                    empVO.setEmpno(empDO.getEmpno());
+                    empVO.setEname(empDO.getEname());
+                    empVO.setJob(empDO.getJob());
+                    empVO.setHiredate(
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                                    .format(empDO.getHiredate())
+                    );
+                    empVO.setSal(empDO.getSal());
+                    empVO.setComm(empDO.getComm());
+                    empVO.setDeptVO(transformDeptVO(empDO.getDeptDO()));
+                    return empVO;
+                })
+                .collect(Collectors.toList());
     }
 
 }
