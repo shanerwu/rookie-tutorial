@@ -24,7 +24,7 @@ public class IndexController {
     @Autowired
     private EmpService empService;
 
-    @GetMapping("/index")
+    @GetMapping({"/", "/index"})
     public String index(Model model) {
         List<DeptDO> deptDOs = deptService.getAll();
         List<EmpDO> empDOs = empService.getAll();

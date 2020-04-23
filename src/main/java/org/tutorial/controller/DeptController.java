@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +35,7 @@ public class DeptController {
     public String listEmpsByDeptnoA(Model model, Integer deptno) {
         ModelAndView modelAndView = new ModelAndView();
         List<EmpDO> empDOs = deptService.getEmpsByDeptno(deptno);
-        model.addAttribute("listEmps_ByDeptno", empDOs);
+        model.addAttribute("listEmps_ByDeptno", transformEmpVOs(empDOs));
         return "dept/listEmpsByDeptno";
     }
 
@@ -60,7 +59,7 @@ public class DeptController {
     }
 
     @PostMapping("/dept/update")
-    public String update(Model model, @ModelAttribute("deptVO") DeptVO deptVO) {
+    public String update(Model model, DeptVO deptVO) {
         DeptDO updatedDeptDO = deptService.update(deptVO.getDeptno(), deptVO.getDname(), deptVO.getLoc());
         model.addAttribute("deptVO", transformDeptVO(updatedDeptDO));
         return "dept/listOne";

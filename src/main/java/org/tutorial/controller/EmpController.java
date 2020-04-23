@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
@@ -58,7 +57,7 @@ public class EmpController {
     }
 
     @PostMapping("/emp/add")
-    public String add(Model model, @Valid @ModelAttribute("empVO") EmpVO empVO, BindingResult result) {
+    public String add(Model model, @Valid EmpVO empVO, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("deptVOs", transformDeptVOs(deptService.getAll()));
             return "emp/add";
@@ -83,7 +82,7 @@ public class EmpController {
     }
 
     @PostMapping("/emp/update")
-    public String update(Model model, @ModelAttribute("empVO") EmpVO empVO) {
+    public String update(Model model, EmpVO empVO) {
         EmpDO updatedEmpDO = empService.updateEmp(
                 empVO.getEmpno(),
                 empVO.getEname(),
