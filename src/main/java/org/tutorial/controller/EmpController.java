@@ -5,9 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,13 +46,23 @@ public class EmpController {
 
     @GetMapping("/emp/add")
     public String showAddPage(Model model) {
-        model.addAttribute("empVO", new EmpVO());
+        EmpVO empVO = new EmpVO();
+        empVO.setEname("王小明");
+        empVO.setJob("manager");
+        empVO.setHiredate(format(LocalDate.now()));
+        empVO.setSal(10000.0);
+        empVO.setComm(100.0);
+        model.addAttribute("empVO", empVO);
         model.addAttribute("deptVOs", transformDeptVOs(deptService.getAll()));
         return "emp/add";
     }
 
     @PostMapping("/emp/add")
-    public String add(@ModelAttribute("empVO") EmpVO empVO) {
+    public String add(Model model, @Valid @ModelAttribute("empVO") EmpVO empVO, BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("deptVOs", transformDeptVOs(deptService.getAll()));
+            return "emp/add";
+        }
         empService.addEmp(
                 empVO.getEname(),
                 empVO.getJob(),
@@ -64,13 +77,13 @@ public class EmpController {
     public String showUpdatePage(Model model, Integer empno) {
         EmpDO empDO = empService.getOneEmp(empno);
         List<DeptDO> deptDOs = deptService.getAll();
-        model.addAttribute("deptVOs", transformDeptVOs(deptDOs));
         model.addAttribute("empVO", transformEmpVO(empDO));
+        model.addAttribute("deptVOs", transformDeptVOs(deptDOs));
         return "emp/update";
     }
 
     @PostMapping("/emp/update")
-    public String update(Model model, EmpVO empVO) {
+    public String update(Model model, @ModelAttribute("empVO") EmpVO empVO) {
         EmpDO updatedEmpDO = empService.updateEmp(
                 empVO.getEmpno(),
                 empVO.getEname(),

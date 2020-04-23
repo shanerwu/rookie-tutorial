@@ -1,45 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/error.css">
     <title>員工資料新增</title>
 </head>
 <body>
     <h3>員工資料</h3>
-    <form method="POST" action="${pageContext.request.contextPath}/emp/add" name="form1">
+    <form:form method="POST" action="${pageContext.request.contextPath}/emp/add" modelAttribute="empVO">
         <table>
             <tr>
                 <td>員工姓名:</td>
                 <td>
-                    <input type="TEXT" name="ename" size="45" value="${(empVO==null)? "王小明" : empVO.ename}" />
+                    <form:input path="ename" size="45" />
+                    <form:errors path="ename" cssClass="errormsg" />
                 </td>
             </tr>
             <tr>
                 <td>職位:</td>
                 <td>
-                    <input type="TEXT" name="job" size="45" value="${(empVO==null)? "manager" : empVO.job}" />
+                    <form:input path="job" size="45" />
                 </td>
             </tr>
             <tr>
-                <jsp:useBean id="now" class="java.util.Date" />
-                <fmt:formatDate var="currentDate" value="${now}" pattern="yyyy-MM-dd" />
                 <td>雇用日期:</td>
                 <td>
-                    <input type="date" name="hiredate" value="${(empVO==null)? currentDate : empVO.hiredate}" />
+                    <form:input path="hiredate" type="date" />
+                    <form:errors path="hiredate" cssClass="errormsg" />
                 </td>
             </tr>
             <tr>
                 <td>薪水:</td>
                 <td>
-                    <input type="TEXT" name="sal" size="45" value="${(empVO==null)? "10000" : empVO.sal}" />
+                    <form:input path="sal" size="45" />
+                    <form:errors path="sal" cssClass="errormsg" />
                 </td>
             </tr>
             <tr>
                 <td>獎金:</td>
                 <td>
-                    <input type="TEXT" name="comm" size="45" value="${(empVO==null)? "100" : empVO.comm}" />
+                    <form:input path="comm" size="45" />
+                    <form:errors path="comm" cssClass="errormsg" />
                 </td>
             </tr>
 
@@ -57,6 +60,6 @@
         <br />
         <a href="${pageContext.request.contextPath}/index">回首頁</a>
         <input type="submit" value="送出新增">
-    </form>
+    </form:form>
 </body>
 </html>
