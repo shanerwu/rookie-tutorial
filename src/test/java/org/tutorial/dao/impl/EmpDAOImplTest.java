@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.DeptDO;
+import org.tutorial.model.EmpDO;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
@@ -21,31 +21,31 @@ public class EmpDAOImplTest {
 
     @Test
     public void insert() {
-        EmpVO empVO = new EmpVO();
-        empVO.setEname("王小明1");
-        empVO.setJob("manager");
-        empVO.setHiredate(LocalDate.parse("2020-04-01"));
-        empVO.setSal(new Double(50000));
-        empVO.setComm(new Double(500));
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDeptno(40);
-        empVO.setDeptVO(deptVO);
-        dao.insert(empVO);
+        EmpDO empDO = new EmpDO();
+        empDO.setEname("王小明1");
+        empDO.setJob("manager");
+        empDO.setHiredate(LocalDate.parse("2020-04-01"));
+        empDO.setSal(new Double(50000));
+        empDO.setComm(new Double(500));
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(40);
+        empDO.setDeptDO(deptDO);
+        dao.insert(empDO);
     }
 
     @Test
     public void update() {
-        EmpVO empVO = new EmpVO();
-        empVO.setEmpno(7001);
-        empVO.setEname("王小明2");
-        empVO.setJob("manager2");
-        empVO.setHiredate(LocalDate.parse("2020-04-01"));
-        empVO.setSal(new Double(20000));
-        empVO.setComm(new Double(200));
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDeptno(40);
-        empVO.setDeptVO(deptVO);
-        dao.update(empVO);
+        EmpDO empDO = new EmpDO();
+        empDO.setEmpno(7001);
+        empDO.setEname("王小明2");
+        empDO.setJob("manager2");
+        empDO.setHiredate(LocalDate.parse("2020-04-01"));
+        empDO.setSal(new Double(20000));
+        empDO.setComm(new Double(200));
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(40);
+        empDO.setDeptDO(deptDO);
+        dao.update(empDO);
     }
 
     @Test
@@ -55,32 +55,32 @@ public class EmpDAOImplTest {
 
     @Test
     public void findByPrimaryKey() {
-        EmpVO empVO = dao.findByPrimaryKey(7001);
-        System.out.print(empVO.getEmpno() + ",");
-        System.out.print(empVO.getEname() + ",");
-        System.out.print(empVO.getJob() + ",");
-        System.out.print(empVO.getHiredate() + ",");
-        System.out.print(empVO.getSal() + ",");
-        System.out.print(empVO.getComm() + ",");
-        System.out.print(empVO.getDeptVO().getDeptno() + ",");
-        System.out.print(empVO.getDeptVO().getDname() + ",");
-        System.out.println(empVO.getDeptVO().getLoc());
+        EmpDO empDO = dao.findByPrimaryKey(7001);
+        System.out.print(empDO.getEmpno() + ",");
+        System.out.print(empDO.getEname() + ",");
+        System.out.print(empDO.getJob() + ",");
+        System.out.print(empDO.getHiredate() + ",");
+        System.out.print(empDO.getSal() + ",");
+        System.out.print(empDO.getComm() + ",");
+        System.out.print(empDO.getDeptDO().getDeptno() + ",");
+        System.out.print(empDO.getDeptDO().getDname() + ",");
+        System.out.println(empDO.getDeptDO().getLoc());
         System.out.println("---------------------");
     }
 
     @Test
     public void getAll() {
-        List<EmpVO> list = dao.getAll();
-        for (EmpVO aEmp : list) {
+        List<EmpDO> list = dao.getAll();
+        for (EmpDO aEmp : list) {
             System.out.print(aEmp.getEmpno() + ",");
             System.out.print(aEmp.getEname() + ",");
             System.out.print(aEmp.getJob() + ",");
             System.out.print(aEmp.getHiredate() + ",");
             System.out.print(aEmp.getSal() + ",");
             System.out.print(aEmp.getComm() + ",");
-            System.out.print(aEmp.getDeptVO().getDeptno() + ",");
-            System.out.print(aEmp.getDeptVO().getDname() + ",");
-            System.out.print(aEmp.getDeptVO().getLoc());
+            System.out.print(aEmp.getDeptDO().getDeptno() + ",");
+            System.out.print(aEmp.getDeptDO().getDname() + ",");
+            System.out.print(aEmp.getDeptDO().getLoc());
             System.out.println();
         }
     }

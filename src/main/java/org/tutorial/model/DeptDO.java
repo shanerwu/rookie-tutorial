@@ -22,8 +22,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "DEPT2")
 @Entity
-@NamedQuery(name = "dept.all", query = "SELECT d FROM DeptVO d")
-public class DeptVO implements Serializable {
+@NamedQuery(name = "dept.all", query = "SELECT d FROM DeptDO d")
+public class DeptDO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deptSeq")
@@ -37,6 +37,6 @@ public class DeptVO implements Serializable {
     @Column(name = "LOC", columnDefinition = "VARCHAR2(13 CHAR)")
     private String loc;
 
-    @OneToMany(mappedBy = "deptVO", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<EmpVO> empVOs;
+    @OneToMany(mappedBy = "deptDO", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<EmpDO> empDOS;
 }

@@ -3,20 +3,20 @@ package org.tutorial.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.EmpDO;
 
 public interface EmpService {
 
-    EmpVO addEmp(String ename, String job, LocalDate hiredate,
-                        Double sal, Double comm, Integer deptno);
+    EmpDO addEmp(String ename, String job, LocalDate hiredate,
+                 Double sal, Double comm, Integer deptno);
 
-    EmpVO updateEmp(Integer empno, String ename, String job,
+    EmpDO updateEmp(Integer empno, String ename, String job,
                     LocalDate hiredate, Double sal, Double comm, Integer deptno);
 
     void deleteEmp(Integer empno);
 
-    EmpVO getOneEmp(Integer empno);
+    EmpDO getOneEmp(Integer empno);
 
-    List<EmpVO> getAll();
+    List<EmpDO> getAll();
 
 }

@@ -2,18 +2,18 @@ package org.tutorial.dao;
 
 import java.util.List;
 
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.EmpDO;
 
 public interface EmpDAO {
 
-    void insert(EmpVO empVO);
+    void insert(EmpDO empDO);
 
-    void update(EmpVO empVO);
+    void update(EmpDO empDO);
 
     void delete(Integer empno);
 
-    EmpVO findByPrimaryKey(Integer empno);
+    EmpDO findByPrimaryKey(Integer empno);
 
-    List<EmpVO> getAll();
+    List<EmpDO> getAll();
 
 }

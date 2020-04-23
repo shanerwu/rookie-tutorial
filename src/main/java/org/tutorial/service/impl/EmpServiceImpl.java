@@ -3,58 +3,54 @@ package org.tutorial.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.DeptDO;
+import org.tutorial.model.EmpDO;
 import org.tutorial.service.EmpService;
 
+@Service
 public class EmpServiceImpl implements EmpService {
 
+    @Autowired
     private EmpDAO dao;
 
-    public EmpServiceImpl() {
-        //  dao = new EmpDAOImpl();
-        // 將物件生成交由 Spring 管理
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        dao = context.getBean("empDAOImpl", EmpDAO.class);
-    }
-
     @Override
-    public EmpVO addEmp(String ename, String job, LocalDate hiredate,
+    public EmpDO addEmp(String ename, String job, LocalDate hiredate,
                         Double sal, Double comm, Integer deptno) {
 
-        EmpVO empVO = new EmpVO();
+        EmpDO empDO = new EmpDO();
 
-        empVO.setEname(ename);
-        empVO.setJob(job);
-        empVO.setHiredate(hiredate);
-        empVO.setSal(sal);
-        empVO.setComm(comm);
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDeptno(deptno);
-        empVO.setDeptVO(deptVO);
-        dao.insert(empVO);
+        empDO.setEname(ename);
+        empDO.setJob(job);
+        empDO.setHiredate(hiredate);
+        empDO.setSal(sal);
+        empDO.setComm(comm);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(deptno);
+        empDO.setDeptDO(deptDO);
+        dao.insert(empDO);
 
-        return empVO;
+        return empDO;
     }
 
     @Override
-    public EmpVO updateEmp(Integer empno, String ename, String job,
+    public EmpDO updateEmp(Integer empno, String ename, String job,
                            LocalDate hiredate, Double sal, Double comm, Integer deptno) {
 
-        EmpVO empVO = new EmpVO();
+        EmpDO empDO = new EmpDO();
 
-        empVO.setEmpno(empno);
-        empVO.setEname(ename);
-        empVO.setJob(job);
-        empVO.setHiredate(hiredate);
-        empVO.setSal(sal);
-        empVO.setComm(comm);
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDeptno(deptno);
-        empVO.setDeptVO(deptVO);
-        dao.update(empVO);
+        empDO.setEmpno(empno);
+        empDO.setEname(ename);
+        empDO.setJob(job);
+        empDO.setHiredate(hiredate);
+        empDO.setSal(sal);
+        empDO.setComm(comm);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(deptno);
+        empDO.setDeptDO(deptDO);
+        dao.update(empDO);
 
         return dao.findByPrimaryKey(empno);
     }
@@ -65,12 +61,12 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public EmpVO getOneEmp(Integer empno) {
+    public EmpDO getOneEmp(Integer empno) {
         return dao.findByPrimaryKey(empno);
     }
 
     @Override
-    public List<EmpVO> getAll() {
+    public List<EmpDO> getAll() {
         return dao.getAll();
     }
 

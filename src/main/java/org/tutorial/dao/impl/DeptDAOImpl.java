@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.dao.DeptDAO;
-import org.tutorial.model.DeptVO;
+import org.tutorial.model.DeptDO;
 
 @Repository
 public class DeptDAOImpl implements DeptDAO {
@@ -28,36 +28,36 @@ public class DeptDAOImpl implements DeptDAO {
 
     @Override
     @Transactional
-    public void insert(DeptVO deptVO) {
-        entityManager.persist(deptVO);
+    public void insert(DeptDO deptDO) {
+        entityManager.persist(deptDO);
     }
 
     @Override
     @Transactional
-    public void update(DeptVO deptVO) {
-        DeptVO deptVOFromDB = entityManager.find(DeptVO.class, deptVO.getDeptno());
-        if (deptVOFromDB != null) {
-            deptVOFromDB.setDeptno(deptVO.getDeptno());
-            deptVOFromDB.setDname(deptVO.getDname());
-            deptVOFromDB.setLoc(deptVO.getLoc());
+    public void update(DeptDO deptDO) {
+        DeptDO deptDOFromDB = entityManager.find(DeptDO.class, deptDO.getDeptno());
+        if (deptDOFromDB != null) {
+            deptDOFromDB.setDeptno(deptDO.getDeptno());
+            deptDOFromDB.setDname(deptDO.getDname());
+            deptDOFromDB.setLoc(deptDO.getLoc());
         }
     }
 
     @Override
     @Transactional
     public void delete(Integer deptno) {
-        DeptVO deptVO = entityManager.find(DeptVO.class, deptno);
-        entityManager.remove(deptVO);
+        DeptDO deptDO = entityManager.find(DeptDO.class, deptno);
+        entityManager.remove(deptDO);
     }
 
     @Override
-    public DeptVO findByPrimaryKey(Integer deptno) {
-        return entityManager.find(DeptVO.class, deptno);
+    public DeptDO findByPrimaryKey(Integer deptno) {
+        return entityManager.find(DeptDO.class, deptno);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<DeptVO> getAll() {
+    public List<DeptDO> getAll() {
         //Name Query
         Query query = entityManager.createNamedQuery("dept.all");
         //JPQL Query
@@ -68,26 +68,26 @@ public class DeptDAOImpl implements DeptDAO {
     }
 
     @Override
-    public List<DeptVO> findByCriteria(DeptVO deptVO) {
+    public List<DeptDO> findByCriteria(DeptDO deptDO) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<DeptVO> criteriaQuery = criteriaBuilder.createQuery(DeptVO.class);
-        Root<DeptVO> column = criteriaQuery.from(DeptVO.class);
+        CriteriaQuery<DeptDO> criteriaQuery = criteriaBuilder.createQuery(DeptDO.class);
+        Root<DeptDO> column = criteriaQuery.from(DeptDO.class);
 
         List<Predicate> predicates = new ArrayList<>();
-        if (deptVO.getDeptno() != null) {
-            predicates.add(criteriaBuilder.equal(column.get("deptno"), deptVO.getDeptno()));
+        if (deptDO.getDeptno() != null) {
+            predicates.add(criteriaBuilder.equal(column.get("deptno"), deptDO.getDeptno()));
         }
 
-        if (StringUtils.isNoneBlank(deptVO.getDname())) {
-            predicates.add(criteriaBuilder.like(column.get("dname"), WILD_CARD + deptVO.getDname() + WILD_CARD));
+        if (StringUtils.isNoneBlank(deptDO.getDname())) {
+            predicates.add(criteriaBuilder.like(column.get("dname"), WILD_CARD + deptDO.getDname() + WILD_CARD));
         }
 
-        if (StringUtils.isNoneBlank(deptVO.getLoc())) {
-            predicates.add(criteriaBuilder.like(column.get("loc"), WILD_CARD + deptVO.getLoc() + WILD_CARD));
+        if (StringUtils.isNoneBlank(deptDO.getLoc())) {
+            predicates.add(criteriaBuilder.like(column.get("loc"), WILD_CARD + deptDO.getLoc() + WILD_CARD));
         }
 
         criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
-        TypedQuery<DeptVO> query = entityManager.createQuery(criteriaQuery);
+        TypedQuery<DeptDO> query = entityManager.createQuery(criteriaQuery);
         return query.getResultList();
     }
 

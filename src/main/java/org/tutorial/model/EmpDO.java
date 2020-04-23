@@ -21,8 +21,8 @@ import lombok.Setter;
 @Setter
 @Table(name = "EMP2")
 @Entity
-@NamedQuery(name = "emp.all", query = "select emp from EmpVO emp")
-public class EmpVO implements Serializable {
+@NamedQuery(name = "emp.all", query = "select emp from EmpDO emp")
+public class EmpDO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empSeq")
@@ -47,5 +47,5 @@ public class EmpVO implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "DEPTNO")
-    private DeptVO deptVO;
+    private DeptDO deptDO;
 }

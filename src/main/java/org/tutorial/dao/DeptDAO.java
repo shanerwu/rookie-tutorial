@@ -2,20 +2,20 @@ package org.tutorial.dao;
 
 import java.util.List;
 
-import org.tutorial.model.DeptVO;
+import org.tutorial.model.DeptDO;
 
 public interface DeptDAO {
 
-    void insert(DeptVO deptVO);
+    void insert(DeptDO deptDO);
 
-    void update(DeptVO deptVO);
+    void update(DeptDO deptDO);
 
     void delete(Integer deptno);
 
-    DeptVO findByPrimaryKey(Integer deptno);
+    DeptDO findByPrimaryKey(Integer deptno);
 
-    List<DeptVO> getAll();
+    List<DeptDO> getAll();
 
-    List<DeptVO> findByCriteria(DeptVO deptVO);
+    List<DeptDO> findByCriteria(DeptDO deptDO);
 
 }

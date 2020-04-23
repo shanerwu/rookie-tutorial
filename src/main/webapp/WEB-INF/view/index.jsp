@@ -1,7 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>IBM Emp</title>
 </head>
 <body>
@@ -10,70 +11,53 @@
     </div>
     <div>
         <h3>員工資料查詢</h3>
-        <c:if test="${not empty errorMsgs}">
-            <font color='red'>請修正以下錯誤:
-                <ul>
-                    <c:forEach var="message" items="${errorMsgs}">
-                        <li>${message}</li>
-                    </c:forEach>
-                </ul>
-            </font>
-        </c:if>
         <ul>
             <li>
-                <a href='emp/listAll.jsp'>List</a> all Emps.
+                <a href='${pageContext.request.contextPath}/emp/listAll'>List</a> all Emps.
             </li>
             <br>
 
             <li>
-                <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do" >
+                <form method="POST" action="${pageContext.request.contextPath}/emp/getOne_For_Display" >
                     <b>輸入員工編號 (如7001):</b>
                     <input type="text" name="empno">
                     <input type="submit" value="送出">
-                    <input type="hidden" name="action" value="getOne_For_Display">
                 </form>
             </li>
 
-            <jsp:useBean id="empSvc" scope="page" class="org.tutorial.service.impl.EmpServiceImpl" />
-
             <li>
-                <form method="POST" action="emp/emp.do" >
+                <form method="POST" action="${pageContext.request.contextPath}/emp/getOne_For_Display" >
                     <b>選擇員工編號:</b>
                     <select size="1" name="empno">
-                        <c:forEach var="empVO" items="${empSvc.all}" >
+                        <c:forEach var="empVO" items="${empVOs}" >
                             <option value="${empVO.empno}">${empVO.empno}</option>
                         </c:forEach>
                     </select>
                     <input type="submit" value="送出">
-                    <input type="hidden" name="action" value="getOne_For_Display">
                 </form>
             </li>
 
             <li>
-                <form method="POST" action="emp/emp.do" >
+                <form method="POST" action="${pageContext.request.contextPath}/emp/getOne_For_Display" >
                     <b>選擇員工姓名:</b>
                     <select size="1" name="empno">
-                        <c:forEach var="empVO" items="${empSvc.all}" >
+                        <c:forEach var="empVO" items="${empVOs}" >
                             <option value="${empVO.empno}">${empVO.ename}</option>
                         </c:forEach>
                     </select>
                     <input type="submit" value="送出">
-                    <input type="hidden" name="action" value="getOne_For_Display">
                 </form>
             </li>
 
-            <jsp:useBean id="deptSvc" scope="page" class="org.tutorial.service.impl.DeptServiceImpl" />
-
             <li>
-                <form method="POST" action="${pageContext.request.contextPath}/dept/dept.do" >
+                <form method="POST" action="${pageContext.request.contextPath}/dept/listEmps_ByDeptno_A" >
                     <b><font color=blue>選擇部門:</font></b>
                     <select size="1" name="deptno">
-                        <c:forEach var="deptVO" items="${deptSvc.all}" >
+                        <c:forEach var="deptVO" items="${deptVOs}" >
                             <option value="${deptVO.deptno}">${deptVO.dname}
                         </c:forEach>
                     </select>
                     <input type="submit" value="送出">
-                    <input type="hidden" name="action" value="listEmps_ByDeptno_A">
                 </form>
             </li>
         </ul>
@@ -81,13 +65,13 @@
     <div>
         <h3>員工管理</h3>
         <ul>
-            <li><a href='${pageContext.request.contextPath}/emp/add.jsp'>Add</a> a new Emp.</li>
+            <li><a href='${pageContext.request.contextPath}/emp/add'>Add</a> a new Emp.</li>
         </ul>
     </div>
     <div>
         <h3><font color=blue>部門管理</font></h3>
         <ul>
-            <li><a href='${pageContext.request.contextPath}/dept/listAll.jsp'>List</a> all Depts. </li>
+            <li><a href='${pageContext.request.contextPath}/dept/listAll'>List</a> all Depts. </li>
         </ul>
     </div>
 </body>

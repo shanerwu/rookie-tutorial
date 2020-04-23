@@ -2,18 +2,18 @@ package org.tutorial.service;
 
 import java.util.List;
 
-import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.DeptDO;
+import org.tutorial.model.EmpDO;
 
 public interface DeptService {
 
-    DeptVO update(Integer deptno, String dname, String loc);
+    DeptDO update(Integer deptno, String dname, String loc);
 
-    List<DeptVO> getAll();
+    List<DeptDO> getAll();
 
-    DeptVO getOneDept(Integer deptno);
+    DeptDO getOneDept(Integer deptno);
 
-    List<EmpVO> getEmpsByDeptno(Integer deptno);
+    List<EmpDO> getEmpsByDeptno(Integer deptno);
 
     void deleteDept(Integer deptno);
 

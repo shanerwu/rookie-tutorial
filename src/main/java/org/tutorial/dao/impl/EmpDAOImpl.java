@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.EmpDO;
 
 @Repository
 public class EmpDAOImpl implements EmpDAO {
@@ -19,31 +19,31 @@ public class EmpDAOImpl implements EmpDAO {
 
     @Override
     @Transactional
-    public void insert(EmpVO empVO) {
-        entityManager.persist(empVO);
+    public void insert(EmpDO empDO) {
+        entityManager.persist(empDO);
     }
 
     @Override
     @Transactional
-    public void update(EmpVO empVO) {
-        entityManager.merge(empVO);
+    public void update(EmpDO empDO) {
+        entityManager.merge(empDO);
     }
 
     @Override
     @Transactional
     public void delete(Integer empno) {
-        EmpVO empVO = entityManager.find(EmpVO.class, empno);
-        entityManager.remove(empVO);
+        EmpDO empDO = entityManager.find(EmpDO.class, empno);
+        entityManager.remove(empDO);
     }
 
     @Override
-    public EmpVO findByPrimaryKey(Integer empno) {
-        return entityManager.find(EmpVO.class, empno);
+    public EmpDO findByPrimaryKey(Integer empno) {
+        return entityManager.find(EmpDO.class, empno);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<EmpVO> getAll() {
+    public List<EmpDO> getAll() {
         //Name Query
         Query query = entityManager.createNamedQuery("emp.all");
         //JPQL Query

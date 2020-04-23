@@ -2,37 +2,38 @@ package org.tutorial.dao.impl;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tutorial.dao.DeptDAO;
-import org.tutorial.model.DeptVO;
-import org.tutorial.model.EmpVO;
+import org.tutorial.model.DeptDO;
+import org.tutorial.model.EmpDO;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class DeptDAOImplTest {
 
-    @Autowired
     private DeptDAO dao;
+
+    @Before
+    public void before() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        dao = context.getBean("deptDAOImpl", DeptDAO.class);
+    }
 
     @Test
     public void insert() {
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDname("製造部");
-        deptVO.setLoc("美國洛杉磯");
-        dao.insert(deptVO);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDname("製造部");
+        deptDO.setLoc("美國洛杉磯");
+        dao.insert(deptDO);
     }
 
     @Test
     public void update() {
-        DeptVO deptVO = new DeptVO();
-        deptVO.setDeptno(10);
-        deptVO.setDname("財務部2");
-        deptVO.setLoc("臺灣台北2");
-        dao.update(deptVO);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(10);
+        deptDO.setDname("財務部2");
+        deptDO.setLoc("臺灣台北2");
+        dao.update(deptDO);
     }
 
     @Test
@@ -42,21 +43,21 @@ public class DeptDAOImplTest {
 
     @Test
     public void findByPrimaryKey() {
-        DeptVO deptVO = dao.findByPrimaryKey(10);
-        System.out.print(deptVO.getDeptno() + ",");
-        System.out.print(deptVO.getDname() + ",");
-        System.out.println(deptVO.getLoc());
+        DeptDO deptDO = dao.findByPrimaryKey(10);
+        System.out.print(deptDO.getDeptno() + ",");
+        System.out.print(deptDO.getDname() + ",");
+        System.out.println(deptDO.getLoc());
         System.out.println("---------------------");
     }
 
     @Test
     public void getAll() {
-        List<DeptVO> list = dao.getAll();
-        for (DeptVO aDept : list) {
+        List<DeptDO> list = dao.getAll();
+        for (DeptDO aDept : list) {
             System.out.print(aDept.getDeptno() + ",");
             System.out.print(aDept.getDname() + ",");
             System.out.println(aDept.getLoc() + ": ");
-            for (EmpVO aEmp : aDept.getEmpVOs()) {
+            for (EmpDO aEmp : aDept.getEmpDOS()) {
                 System.out.print(aEmp.getEmpno() + ",");
                 System.out.print(aEmp.getEname() + ",");
                 System.out.print(aEmp.getJob() + ",");
@@ -70,10 +71,10 @@ public class DeptDAOImplTest {
 
     @Test
     public void findByCriteria() {
-        DeptVO deptVO = new DeptVO();
-        deptVO.setLoc("臺灣");
-        deptVO.setDname("研發部");
-        dao.findByCriteria(deptVO)
+        DeptDO deptDO = new DeptDO();
+        deptDO.setLoc("臺灣");
+        deptDO.setDname("研發部");
+        dao.findByCriteria(deptDO)
                 .forEach(dept -> {
                     System.out.print(dept.getDeptno() + ",");
                     System.out.print(dept.getDname() + ",");
