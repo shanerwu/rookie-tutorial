@@ -6,14 +6,17 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.tutorial.config.TestConfig;
 import org.tutorial.dao.EmpDAO;
 import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+@ContextConfiguration(classes = TestConfig.class)
+@ActiveProfiles("test")
 public class EmpDAOImplTest {
 
     @Autowired

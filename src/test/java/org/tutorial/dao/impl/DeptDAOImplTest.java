@@ -2,22 +2,24 @@ package org.tutorial.dao.impl;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.tutorial.config.TestConfig;
 import org.tutorial.dao.DeptDAO;
 import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = TestConfig.class)
+@ActiveProfiles("test")
 public class DeptDAOImplTest {
 
+    @Autowired
     private DeptDAO dao;
-
-    @Before
-    public void before() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        dao = context.getBean("deptDAOImpl", DeptDAO.class);
-    }
 
     @Test
     public void insert() {
