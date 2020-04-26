@@ -18,3 +18,6 @@ Tutorial made for my junior colleague
 #### Step 3 - Spring & Spring MVC
 1. Integrating JPA with Spring
 2. Replace Servlet with Spring MVC Controller
+
+#### Step 4 - Thymeleaf
+1. Replace JSP  with Thymeleaf
