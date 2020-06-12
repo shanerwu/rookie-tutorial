@@ -11,7 +11,7 @@ public interface DeptService {
 
     DeptDO getOneDept(Integer deptno);
 
-    DeptDO update(Integer deptno, String dname, String loc);
+    DeptDO update(DeptDO deptDO);
 
     List<EmpDO> getEmpsByDeptno(Integer deptno);
 

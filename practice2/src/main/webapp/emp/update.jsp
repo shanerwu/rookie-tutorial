@@ -57,7 +57,7 @@
                 <td>
                     <select size="1" name="deptno">
                         <c:forEach var="deptDO" items="${deptDOs}">
-                            <option value="${deptDO.deptno}" ${(empDO.deptno==deptDO.deptno)?'selected':'' } >${deptDO.dname}</option>
+                            <option value="${deptDO.deptno}" ${(empDO.deptDO.deptno==deptDO.deptno) ? 'selected' : ''} >${deptDO.dname}</option>
                         </c:forEach>
                     </select>
                 </td>

@@ -1,17 +1,14 @@
 package org.tutorial.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.tutorial.model.EmpDO;
 
 public interface EmpService {
 
-    EmpDO addEmp(String ename, String job, LocalDate hiredate,
-                 Double sal, Double comm, Integer deptno);
+    EmpDO addEmp(EmpDO empDO);
 
-    EmpDO updateEmp(Integer empno, String ename, String job,
-                    LocalDate hiredate, Double sal, Double comm, Integer deptno);
+    EmpDO updateEmp(EmpDO empDO);
 
     void deleteEmp(Integer empno);
 

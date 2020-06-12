@@ -95,9 +95,12 @@ public class DeptDAOImpl implements DeptDAO {
     @Override
     public List<EmpDO> getEmpsByDeptno(Integer deptno) {
         EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        TypedQuery<EmpDO> query = entityManager.createQuery("SELECT emp FROM EmpDO emp WHERE emp.deptno = :deptno", EmpDO.class);
+        // FETCH: 一次查出一方及多方，而非預設的 Lazy Loading（先查一方，等到要使用到多方的屬性時，才再發送 sql 至資料庫中查詢多方）
+        TypedQuery<DeptDO> query =
+                entityManager.createQuery("SELECT dept FROM DeptDO dept LEFT JOIN FETCH dept.empDOs WHERE dept.deptno = :deptno", DeptDO.class);
         query.setParameter("deptno", deptno);
-        return query.getResultList();
+        DeptDO deptDO = query.getSingleResult();
+        return deptDO.getEmpDOs();
     }
 
     @Override

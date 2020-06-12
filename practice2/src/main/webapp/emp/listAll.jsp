@@ -37,13 +37,7 @@
                 <td>${empDO.hiredate}</td>
                 <td>${empDO.sal}</td>
                 <td>${empDO.comm}</td>
-                <td>${empDO.deptno}
-                    <c:forEach var="deptDO" items="${deptDOs}">
-                        <c:if test="${empDO.deptno==deptDO.deptno}">
-                            【${deptDO.dname} - ${deptDO.loc}】
-                        </c:if>
-                    </c:forEach>
-                </td>
+                <td>${empDO.deptDO.deptno}【${empDO.deptDO.dname} - ${empDO.deptDO.loc}】</td>
                 <td>
                     <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do">
                         <input type="submit" value="修改">

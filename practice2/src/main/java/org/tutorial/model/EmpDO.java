@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "EMP2")
 @Entity
-@NamedQuery(name = "emp.all", query = "SELECT emp FROM EmpDO emp")
+@NamedQuery(name = "emp.all", query = "select emp from EmpDO emp")
 public class EmpDO implements Serializable {
 
     @Id
@@ -43,6 +45,7 @@ public class EmpDO implements Serializable {
     @Column(name = "COMM", columnDefinition = "NUMBER(7, 2)")
     private Double comm;
 
-    @Column(name = "DEPTNO", nullable = false, columnDefinition = "NUMBER(3)")
-    private Integer deptno;
+    @ManyToOne
+    @JoinColumn(name = "DEPTNO")
+    private DeptDO deptDO;
 }

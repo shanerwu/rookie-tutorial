@@ -30,14 +30,14 @@ public class EmpServlet extends HttpServlet {
         String action = req.getParameter("action");
 
         if ("listAll".equals(action)) {
-            setDeptDOsAndEmpDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/listAll.jsp顯示使用
+            setEmpDOsRequestAttribute(req); // 查出所有員工存入req，供/emp/listAll.jsp顯示使用
             RequestDispatcher successView = req.getRequestDispatcher("/emp/listAll.jsp");
             successView.forward(req, res);
             return;
         }
 
         if ("add".equals(action)) {
-            setDeptDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/add.jsp顯示使用
+            setDeptDOsRequestAttribute(req); // 查出所有部門存入req，供/emp/add.jsp顯示使用
             RequestDispatcher successView = req.getRequestDispatcher("/emp/add.jsp");
             successView.forward(req, res);
             return;
@@ -102,7 +102,6 @@ public class EmpServlet extends HttpServlet {
 
                 // 3.查詢完成，準備轉交(Send the Success view)
                 req.setAttribute("empDO", empDO);
-                setDeptDOsRequestAttribute(req); // 查出所有部門存入req，供/emp/listOne.jsp顯示使用
                 RequestDispatcher successView = req.getRequestDispatcher("/emp/listOne.jsp"); // 轉交/emp/listOne.jsp
                 successView.forward(req, res);
 
@@ -141,7 +140,7 @@ public class EmpServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
                 errorMsgs.add("無法取得要修改的資料: " + e.getMessage());
-                setDeptDOsAndEmpDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/listAll.jsp顯示使用
+                setEmpDOsRequestAttribute(req); // 查出所有員工存入req，供/emp/listAll.jsp顯示使用
                 RequestDispatcher failureView = req.getRequestDispatcher("/emp/listAll.jsp");
                 failureView.forward(req, res);
             }
@@ -201,7 +200,9 @@ public class EmpServlet extends HttpServlet {
                 empDO.setHiredate(hiredate);
                 empDO.setSal(sal);
                 empDO.setComm(comm);
-                empDO.setDeptno(deptno);
+                DeptDO deptDO = new DeptDO();
+                deptDO.setDeptno(deptno);
+                empDO.setDeptDO(deptDO);
 
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
@@ -214,11 +215,10 @@ public class EmpServlet extends HttpServlet {
 
                 // 2.開始修改資料
                 EmpService empService = new EmpServiceImpl();
-                empDO = empService.updateEmp(empno, ename, job, hiredate, sal, comm, deptno);
+                empDO = empService.updateEmp(empDO);
 
                 // 3.修改完成,準備轉交(Send the Success view)
                 req.setAttribute("empDO", empDO);
-                setDeptDOsRequestAttribute(req); // 查出所有部門存入req，供/emp/listOne.jsp顯示使用
                 RequestDispatcher successView = req.getRequestDispatcher("/emp/listOne.jsp"); // 轉交/emp/listOne.jsp
                 successView.forward(req, res);
 
@@ -283,7 +283,9 @@ public class EmpServlet extends HttpServlet {
                 empDO.setHiredate(hiredate);
                 empDO.setSal(sal);
                 empDO.setComm(comm);
-                empDO.setDeptno(deptno);
+                DeptDO deptDO = new DeptDO();
+                deptDO.setDeptno(deptno);
+                empDO.setDeptDO(deptDO);
 
                 // Send the use back to the form, if there were errors
                 if (!errorMsgs.isEmpty()) {
@@ -296,10 +298,10 @@ public class EmpServlet extends HttpServlet {
 
                 // 2.開始新增資料
                 EmpService empService = new EmpServiceImpl();
-                empService.addEmp(ename, job, hiredate, sal, comm, deptno);
+                empService.addEmp(empDO);
 
                 // 3.新增完成，準備轉交(Send the Success view)
-                setDeptDOsAndEmpDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/listAll.jsp顯示使用
+                setEmpDOsRequestAttribute(req); // 查出所有員工存入req，供/emp/listAll.jsp顯示使用
                 RequestDispatcher successView = req.getRequestDispatcher("/emp/listAll.jsp"); // 轉交/emp/listAll.jsp
                 successView.forward(req, res);
 
@@ -328,7 +330,7 @@ public class EmpServlet extends HttpServlet {
                 empService.deleteEmp(empno);
 
                 // 3.刪除完成,準備轉交(Send the Success view)
-                setDeptDOsAndEmpDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/listAll.jsp顯示使用
+                setEmpDOsRequestAttribute(req); // 查出所有員工存入req，供/emp/listAll.jsp顯示使用
                 RequestDispatcher successView = req.getRequestDispatcher("/emp/listAll.jsp");// 轉交/emp/listAll.jsp
                 successView.forward(req, res);
 
@@ -336,26 +338,28 @@ public class EmpServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
                 errorMsgs.add("刪除資料失敗: " + e.getMessage());
-                setDeptDOsAndEmpDOsRequestAttribute(req); // 查出所有部門及員工存入req，供/emp/listAll.jsp顯示使用
+                setEmpDOsRequestAttribute(req); // 查出所有員工存入req，供/emp/listAll.jsp顯示使用
                 RequestDispatcher failureView = req.getRequestDispatcher("/emp/listAll.jsp");
                 failureView.forward(req, res);
             }
         }
     }
 
-    // 查出所有部門及員工存入req，供 /index.jsp 或 /emp/listAll.jsp 畫面顯示使用
+    // 查出所有部門及員工存入req，供 /index.jsp 畫面顯示使用
     // 但不推薦這種寫法，因為有 side effect 問題
     private void setDeptDOsAndEmpDOsRequestAttribute(HttpServletRequest req) {
-        DeptService deptService = new DeptServiceImpl();
-        List<DeptDO> deptDOs = deptService.getAll();
-        req.setAttribute("deptDOs", deptDOs);
+        setDeptDOsRequestAttribute(req);
+        setEmpDOsRequestAttribute(req);
+    }
 
+    // 查出所有員工存入req，供 /emp/listAll.jsp 畫面顯示使用
+    private void setEmpDOsRequestAttribute(HttpServletRequest req) {
         EmpService empService = new EmpServiceImpl();
         List<EmpDO> empDOs = empService.getAll();
         req.setAttribute("empDOs", empDOs);
     }
 
-    // 查出所有部門存入req，供 /emp/add.jsp 或 /emp/update.jsp 或 /emp/listOne.jsp 畫面顯示使用
+    // 查出所有部門存入req，供 /emp/add.jsp 或 /emp/update.jsp 畫面顯示使用
     private void setDeptDOsRequestAttribute(HttpServletRequest req) {
         DeptService deptService = new DeptServiceImpl();
         List<DeptDO> deptDOs = deptService.getAll();

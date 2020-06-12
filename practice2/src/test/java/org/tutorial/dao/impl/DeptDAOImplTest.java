@@ -74,7 +74,7 @@ public class DeptDAOImplTest {
             System.out.print(empDO.getHiredate() + ",");
             System.out.print(empDO.getSal() + ",");
             System.out.print(empDO.getComm() + ",");
-            System.out.print(empDO.getDeptno());
+            System.out.print(empDO.getDeptDO().getDeptno());
             System.out.println();
         }
     }

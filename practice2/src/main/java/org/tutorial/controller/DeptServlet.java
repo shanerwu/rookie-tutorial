@@ -61,10 +61,10 @@ public class DeptServlet extends HttpServlet {
                     url = "/dept/listEmpsByDeptno.jsp"; // 轉交/dept/listEmpsByDeptno.jsp
                 }
                 else if ("listEmps_ByDeptno_B".equals(action)) {
+                    setDeptDOsRequestAttribute(req); // 查出所有部門存入req，供/dept/listAll.jsp顯示使用
                     url = "/dept/listAll.jsp"; // 轉交/dept/listAll.jsp
                 }
 
-                setDeptDOsRequestAttribute(req); // 查出所有部門存入req，供/dept/listEmpsByDeptno.jsp或/dept/listAll.jsp顯示使用
                 RequestDispatcher successView = req.getRequestDispatcher(url);
                 successView.forward(req, res);
 
@@ -140,7 +140,7 @@ public class DeptServlet extends HttpServlet {
 
                 // 2.開始修改資料
                 DeptServiceImpl deptService = new DeptServiceImpl();
-                deptDO = deptService.update(deptno, dname, loc);
+                deptDO = deptService.update(deptDO);
 
                 // 3.修改完成,準備轉交(Send the Success view)
                 req.setAttribute("deptDO", deptDO);
@@ -186,7 +186,7 @@ public class DeptServlet extends HttpServlet {
 
     }
 
-    // 查出所有部門存入req，供/dept/listAll.jsp 或 /dept/listEmpsByDeptno.jsp 或 /dept/listAll.jsp 顯示使用
+    // 查出所有部門存入req，供 /dept/listAll.jsp 顯示使用
     // 但不推薦這種寫法，因為有 side effect 問題
     private void setDeptDOsRequestAttribute(HttpServletRequest req) {
         DeptService deptService = new DeptServiceImpl();

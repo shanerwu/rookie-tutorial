@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.tutorial.dao.EmpDAO;
+import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
 
 public class EmpDAOImplTest {
@@ -28,7 +29,9 @@ public class EmpDAOImplTest {
         empDO.setHiredate(LocalDate.parse("2020-04-01"));
         empDO.setSal(new Double(50000));
         empDO.setComm(new Double(500));
-        empDO.setDeptno(10);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(10);
+        empDO.setDeptDO(deptDO);
         dao.insert(empDO);
         assertTrue(true);
     }
@@ -42,7 +45,9 @@ public class EmpDAOImplTest {
         empDO.setHiredate(LocalDate.parse(("2020-04-01")));
         empDO.setSal(new Double(20000));
         empDO.setComm(new Double(200));
-        empDO.setDeptno(20);
+        DeptDO deptDO = new DeptDO();
+        deptDO.setDeptno(20);
+        empDO.setDeptDO(deptDO);
         dao.update(empDO);
         assertTrue(true);
     }
@@ -71,7 +76,7 @@ public class EmpDAOImplTest {
             System.out.print(empDO.getHiredate() + ",");
             System.out.print(empDO.getSal() + ",");
             System.out.print(empDO.getComm() + ",");
-            System.out.print(empDO.getDeptno());
+            System.out.print(empDO.getDeptDO().getDeptno());
             System.out.println();
         }
     }

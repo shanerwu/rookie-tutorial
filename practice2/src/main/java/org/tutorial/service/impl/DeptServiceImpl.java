@@ -27,13 +27,9 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public DeptDO update(Integer deptno, String dname, String loc) {
-        DeptDO deptDO = new DeptDO();
-        deptDO.setDeptno(deptno);
-        deptDO.setDname(dname);
-        deptDO.setLoc(loc);
+    public DeptDO update(DeptDO deptDO) {
         dao.update(deptDO);
-        return dao.findByPrimaryKey(deptno);
+        return dao.findByPrimaryKey(deptDO.getDeptno());
     }
 
     @Override

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>員工資料新增</title>
 </head>
 <body>
@@ -56,7 +56,7 @@
                 <td>
                     <select size="1" name="deptno">
                         <c:forEach var="deptDO" items="${deptDOs}">
-                            <option value="${deptDO.deptno}" ${(empDO.deptno==deptDO.deptno)? 'selected':'' } >${deptDO.dname}</option>
+                            <option value="${deptDO.deptno}" ${(empDO.deptDO.deptno==deptDO.deptno) ? 'selected' : ''} >${deptDO.dname}</option>
                         </c:forEach>
                     </select>
                 </td>
