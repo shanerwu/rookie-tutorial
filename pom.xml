@@ -11,6 +11,7 @@
 
     <modules>
         <module>practice1</module>
+        <module>practice2</module>
     </modules>
 
     <properties>
