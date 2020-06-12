@@ -13,4 +13,12 @@
     <artifactId>practice2</artifactId>
     <packaging>war</packaging>
 
+    <dependencies>
+        <!-- Hibernate & JPA -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

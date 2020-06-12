@@ -19,4 +19,6 @@ public interface DeptDAO {
 
     List<EmpDO> getEmpsByDeptno(Integer deptno);
 
+    List<DeptDO> findByCriteria(DeptDO deptDO);
+
 }

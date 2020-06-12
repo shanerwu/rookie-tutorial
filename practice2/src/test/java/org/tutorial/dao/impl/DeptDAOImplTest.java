@@ -79,4 +79,18 @@ public class DeptDAOImplTest {
         }
     }
 
+    @Test
+    public void findByCriteria() {
+        DeptDO deptDO = new DeptDO();
+        deptDO.setLoc("臺灣");
+        deptDO.setDname("研發部");
+        dao.findByCriteria(deptDO)
+                .forEach(dept -> {
+                    System.out.print(dept.getDeptno() + ",");
+                    System.out.print(dept.getDname() + ",");
+                    System.out.print(dept.getLoc());
+                    System.out.println();
+                });
+    }
+
 }
