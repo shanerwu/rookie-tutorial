@@ -2,8 +2,8 @@ package org.tutorial.service.impl;
 
 import java.util.List;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.dao.impl.EmpDAOImpl;
 import org.tutorial.model.EmpDO;
 import org.tutorial.service.EmpService;
 
@@ -12,7 +12,12 @@ public class EmpServiceImpl implements EmpService {
     private EmpDAO dao;
 
     public EmpServiceImpl() {
-        dao = new EmpDAOImpl();
+        // 將 Dao 物件生成交由 Spring 管理
+//        dao = new EmpDAOImpl();
+
+        // 此種取得 Spring Bean 的方式為暫時測試用
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        dao = context.getBean("empDAOImpl", EmpDAO.class);
     }
 
     @Override

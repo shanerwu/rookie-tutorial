@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,76 +13,52 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.dao.DeptDAO;
 import org.tutorial.model.DeptDO;
 import org.tutorial.model.EmpDO;
-import org.tutorial.utils.JPAUtil;
 
+@Repository
 public class DeptDAOImpl implements DeptDAO {
 
     private static final String WILD_CARD = "%";
 
+    @PersistenceContext
+    protected EntityManager entityManager;
+
     @Override
+    @Transactional
     public void insert(DeptDO deptDO) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(deptDO);
-            transaction.commit();
-            entityManager.close();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        }
+        entityManager.persist(deptDO);
     }
 
     @Override
+    @Transactional
     public void update(DeptDO deptDO) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         DeptDO deptDOFromDB = entityManager.find(DeptDO.class, deptDO.getDeptno());
         if (deptDOFromDB != null) {
-            EntityTransaction transaction = entityManager.getTransaction();
-            try {
-                transaction.begin();
-                deptDOFromDB.setDeptno(deptDO.getDeptno());
-                deptDOFromDB.setDname(deptDO.getDname());
-                deptDOFromDB.setLoc(deptDO.getLoc());
-                transaction.commit();
-                entityManager.close();
-            } catch (Exception e) {
-                transaction.rollback();
-                e.printStackTrace();
-            }
+            deptDOFromDB.setDeptno(deptDO.getDeptno());
+            deptDOFromDB.setDname(deptDO.getDname());
+            deptDOFromDB.setLoc(deptDO.getLoc());
         }
     }
 
     @Override
+    @Transactional
     public void delete(Integer deptno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            DeptDO deptDO = entityManager.find(DeptDO.class, deptno);
-            entityManager.remove(deptDO);
-            transaction.commit();
-            entityManager.close();
-        } catch (Exception e) {
-            transaction.rollback();
-            e.printStackTrace();
-        }
+        DeptDO deptDO = entityManager.find(DeptDO.class, deptno);
+        entityManager.remove(deptDO);
     }
 
     @Override
     public DeptDO findByPrimaryKey(Integer deptno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         return entityManager.find(DeptDO.class, deptno);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<DeptDO> getAll() {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         //Name Query
         Query query = entityManager.createNamedQuery("dept.all");
         //JPQL Query
@@ -94,7 +70,6 @@ public class DeptDAOImpl implements DeptDAO {
 
     @Override
     public List<EmpDO> getEmpsByDeptno(Integer deptno) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
         // FETCH: 一次查出一方及多方，而非預設的 Lazy Loading（先查一方，等到要使用到多方的屬性時，才再發送 sql 至資料庫中查詢多方）
         TypedQuery<DeptDO> query =
                 entityManager.createQuery("SELECT dept FROM DeptDO dept LEFT JOIN FETCH dept.empDOs WHERE dept.deptno = :deptno", DeptDO.class);
@@ -105,8 +80,6 @@ public class DeptDAOImpl implements DeptDAO {
 
     @Override
     public List<DeptDO> findByCriteria(DeptDO deptDO) {
-        EntityManager entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<DeptDO> criteriaQuery = criteriaBuilder.createQuery(DeptDO.class);
         Root<DeptDO> column = criteriaQuery.from(DeptDO.class);
