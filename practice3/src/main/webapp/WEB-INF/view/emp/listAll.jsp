@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
     <title>全部員工資料</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/table.css'/>">
 </head>
 <body>
     <h3>所有員工資料</h3>
@@ -29,27 +29,25 @@
             <th>修改</th>
             <th>刪除</th>
         </tr>
-        <c:forEach var="empDO" items="${empDOs}">
+        <c:forEach var="empVO" items="${empVOs}">
             <tr align='center' valign='middle'>
-                <td>${empDO.empno}</td>
-                <td>${empDO.ename}</td>
-                <td>${empDO.job}</td>
-                <td>${empDO.hiredate}</td>
-                <td>${empDO.sal}</td>
-                <td>${empDO.comm}</td>
-                <td>${empDO.deptDO.deptno}【${empDO.deptDO.dname} - ${empDO.deptDO.loc}】</td>
+                <td>${empVO.empno}</td>
+                <td>${empVO.ename}</td>
+                <td>${empVO.job}</td>
+                <td>${empVO.hiredate}</td>
+                <td>${empVO.sal}</td>
+                <td>${empVO.comm}</td>
+                <td>${empVO.deptVO.deptno}【${empVO.deptVO.dname} - ${empVO.deptVO.loc}】</td>
                 <td>
-                    <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do">
+                    <form method="POST" action="${pageContext.request.contextPath}/emp/getOne_For_Update">
                         <input type="submit" value="修改">
-                        <input type="hidden" name="empno" value="${empDO.empno}">
-                        <input type="hidden" name="action"	value="getOne_For_Update">
+                        <input type="hidden" name="empno" value="${empVO.empno}">
                     </form>
                 </td>
                 <td>
-                    <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do">
+                    <form method="POST" action="${pageContext.request.contextPath}/emp/delete">
                         <input type="submit" value="刪除">
-                        <input type="hidden" name="empno" value="${empDO.empno}">
-                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="empno" value="${empVO.empno}">
                     </form>
                 </td>
             </tr>

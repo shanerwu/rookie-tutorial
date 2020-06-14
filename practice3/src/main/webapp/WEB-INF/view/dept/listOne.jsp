@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>部門資料</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/table.css'/>">
 </head>
 <body>
     <h3>部門資料</h3>
@@ -15,9 +15,9 @@
             <th>部門基地</th>
         </tr>
         <tr align='center' valign='middle'>
-            <td>${deptDO.deptno}</td>
-            <td>${deptDO.dname}</td>
-            <td>${deptDO.loc}</td>
+            <td>${deptVO.deptno}</td>
+            <td>${deptVO.dname}</td>
+            <td>${deptVO.loc}</td>
         </tr>
     </table>
     <br />

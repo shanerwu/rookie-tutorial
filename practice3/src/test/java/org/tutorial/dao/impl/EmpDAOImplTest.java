@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.model.DeptDO;
-import org.tutorial.model.EmpDO;
+import org.tutorial.model.entity.DeptDO;
+import org.tutorial.model.entity.EmpDO;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})

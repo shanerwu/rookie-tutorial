@@ -2,24 +2,18 @@ package org.tutorial.service.impl;
 
 import java.util.List;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.tutorial.dao.DeptDAO;
-import org.tutorial.model.DeptDO;
-import org.tutorial.model.EmpDO;
+import org.tutorial.model.entity.DeptDO;
+import org.tutorial.model.entity.EmpDO;
 import org.tutorial.service.DeptService;
 
+@Service
 public class DeptServiceImpl implements DeptService {
 
+    @Autowired
     private DeptDAO dao;
-
-    public DeptServiceImpl() {
-        // 將 Dao 物件生成交由 Spring 管理
-        // dao = new DeptDAOImpl();
-
-        // 此種取得 Spring Bean 的方式為暫時測試用
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        dao = context.getBean("deptDAOImpl", DeptDAO.class);
-    }
 
     @Override
     public List<DeptDO> getAll() {

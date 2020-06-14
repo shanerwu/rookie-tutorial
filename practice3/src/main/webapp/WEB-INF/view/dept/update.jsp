@@ -16,28 +16,27 @@
             </ul>
         </font>
     </c:if>
-    <form method="POST" action="${pageContext.request.contextPath}/dept/dept.do" name="form1">
+    <form method="POST" action="${pageContext.request.contextPath}/dept/update" name="form1">
         <table>
             <tr>
                 <td>部門編號:<font color=red><b>*</b></font></td>
-                <td>${deptDO.deptno}</td>
+                <td>${deptVO.deptno}</td>
             </tr>
             <tr>
                 <td>部門名稱:</td>
                 <td>
-                    <input type="TEXT" name="dname" size="45" value="${deptDO.dname}" />
+                    <input type="TEXT" name="dname" size="45" value="${deptVO.dname}" />
                 </td>
             </tr>
             <tr>
                 <td>部門基地:</td>
                 <td>
-                    <input type="TEXT" name="loc" size="45"	value="${deptDO.loc}" />
+                    <input type="TEXT" name="loc" size="45"	value="${deptVO.loc}" />
                 </td>
             </tr>
         </table>
         <br />
-        <input type="hidden" name="action" value="update">
-        <input type="hidden" name="deptno" value="${deptDO.deptno}">
+        <input type="hidden" name="deptno" value="${deptVO.deptno}">
         <a href="${pageContext.request.contextPath}/">回首頁</a>
         <input type="submit" value="送出修改">
     </form>

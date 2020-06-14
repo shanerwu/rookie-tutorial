@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.dao.EmpDAO;
-import org.tutorial.model.EmpDO;
+import org.tutorial.model.entity.EmpDO;
 
 @Repository
 public class EmpDAOImpl implements EmpDAO {

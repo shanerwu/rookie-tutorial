@@ -1,4 +1,4 @@
-package org.tutorial.model;
+package org.tutorial.model.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;

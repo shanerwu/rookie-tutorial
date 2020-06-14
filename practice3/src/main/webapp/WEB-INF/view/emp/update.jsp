@@ -16,48 +16,48 @@
             </ul>
         </font>
     </c:if>
-    <form method="POST" action="${pageContext.request.contextPath}/emp/emp.do" name="form1">
+    <form method="POST" action="${pageContext.request.contextPath}/emp/update" name="form1">
         <table>
             <tr>
                 <td>員工編號:<font color=red><b>*</b></font></td>
-                <td>${empDO.empno}</td>
+                <td>${empVO.empno}</td>
             </tr>
             <tr>
                 <td>員工姓名:</td>
                 <td>
-                    <input type="TEXT" name="ename" size="45" value="${empDO.ename}" />
+                    <input type="TEXT" name="ename" size="45" value="${empVO.ename}" />
                 </td>
             </tr>
             <tr>
                 <td>職位:</td>
                 <td>
-                    <input type="TEXT" name="job" size="45"	value="${empDO.job}" />
+                    <input type="TEXT" name="job" size="45"	value="${empVO.job}" />
                 </td>
             </tr>
             <tr>
                 <td>雇用日期:</td>
                 <td>
-                    <input type="date" name="hiredate" value="${empDO.hiredate}" />
+                    <input type="date" name="hiredate" value="${empVO.hiredate}" />
                 </td>
             </tr>
             <tr>
                 <td>薪水:</td>
                 <td>
-                    <input type="TEXT" name="sal" size="45"	value="${empDO.sal}" />
+                    <input type="TEXT" name="sal" size="45"	value="${empVO.sal}" />
                 </td>
             </tr>
             <tr>
                 <td>獎金:</td>
                 <td>
-                    <input type="TEXT" name="comm" size="45" value="${empDO.comm}" />
+                    <input type="TEXT" name="comm" size="45" value="${empVO.comm}" />
                 </td>
             </tr>
             <tr>
                 <td>部門:<font color=red><b>*</b></font></td>
                 <td>
                     <select size="1" name="deptno">
-                        <c:forEach var="deptDO" items="${deptDOs}">
-                            <option value="${deptDO.deptno}" ${(empDO.deptDO.deptno==deptDO.deptno) ? 'selected' : ''} >${deptDO.dname}</option>
+                        <c:forEach var="deptVO" items="${deptVOs}">
+                            <option value="${deptVO.deptno}" ${(empVO.deptVO.deptno==deptVO.deptno) ? 'selected' : ''} >${deptVO.dname}</option>
                         </c:forEach>
                     </select>
                 </td>
@@ -65,7 +65,7 @@
         </table>
         <br />
         <input type="hidden" name="action" value="update">
-        <input type="hidden" name="empno" value="${empDO.empno}">
+        <input type="hidden" name="empno" value="${empVO.empno}">
         <a href="${pageContext.request.contextPath}/">回首頁</a>
         <input type="submit" value="送出修改">
     </form>

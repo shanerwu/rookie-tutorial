@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>所有部門</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/table.css">
+    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/table.css'/>">
 </head>
 <body>
     <h3>所有部門</h3>
@@ -28,31 +28,25 @@
             <th>查詢部門員工</th>
         </tr>
 
-        <c:forEach var="deptDO" items="${deptDOs}">
+        <c:forEach var="deptVO" items="${deptVOS}">
             <tr align='center' valign='middle'>
-                <td>${deptDO.deptno}</td>
-                <td>${deptDO.dname}</td>
-                <td>${deptDO.loc}</td>
+                <td>${deptVO.deptno}</td>
+                <td>${deptVO.dname}</td>
+                <td>${deptVO.loc}</td>
                 <td>
-                    <form method="POST" action="${pageContext.request.contextPath}/dept/dept.do">
+                    <form method="POST" action="${pageContext.request.contextPath}/dept/getOne_For_Update_Dept">
                         <input type="submit" value="修改">
-                        <input type="hidden" name="deptno" value="${deptDO.deptno}">
-                        <input type="hidden" name="action" value="getOne_For_Update_Dept">
+                        <input type="hidden" name="deptno" value="${deptVO.deptno}">
                     </form>
                 </td>
                 <td>
-                    <form method="POST" action="${pageContext.request.contextPath}/dept/dept.do">
+                    <form method="POST" action="${pageContext.request.contextPath}/dept/delete_Dept">
                         <input type="submit" value="刪除">
-                        <input type="hidden" name="deptno" value="${deptDO.deptno}">
-                        <input type="hidden" name="action" value="delete_Dept">
+                        <input type="hidden" name="deptno" value="${deptVO.deptno}">
                     </form>
                 </td>
                 <td>
-                    <form method="POST" action="${pageContext.request.contextPath}/dept/dept.do">
-                        <input type="submit" value="送出查詢">
-                        <input type="hidden" name="deptno" value="${deptDO.deptno}">
-                        <input type="hidden" name="action" value="listEmps_ByDeptno_B">
-                    </form>
+                    <a href="${pageContext.request.contextPath}/dept/listEmps_ByDeptno_B/${deptVO.deptno}">送出查詢</a>
                 </td>
             </tr>
         </c:forEach>

@@ -2,7 +2,7 @@ package org.tutorial.service;
 
 import java.util.List;
 
-import org.tutorial.model.EmpDO;
+import org.tutorial.model.entity.EmpDO;
 
 public interface EmpService {
 
