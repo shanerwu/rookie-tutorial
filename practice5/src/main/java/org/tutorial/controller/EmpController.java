@@ -3,6 +3,7 @@ package org.tutorial.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -38,8 +39,11 @@ public class EmpController {
 
     @PostMapping("/emp/getOne_For_Display")
     public String listOne(Model model, Integer empno) {
-        EmpDO empDO = empService.getOneEmp(empno);
-        model.addAttribute("empVO", transformEmpVO(empDO));
+        Optional<EmpDO> optional = empService.getOneEmp(empno);
+        if (optional.isPresent()) {
+            EmpDO empDO = optional.get();
+            model.addAttribute("empVO", transformEmpVO(empDO));
+        }
         return "emp/listOne";
     }
 
@@ -69,10 +73,13 @@ public class EmpController {
 
     @PostMapping("/emp/getOne_For_Update")
     public String showUpdatePage(Model model, Integer empno) {
-        EmpDO empDO = empService.getOneEmp(empno);
+        Optional<EmpDO> optional = empService.getOneEmp(empno);
+        if (optional.isPresent()) {
+            EmpDO empDO = optional.get();
+            model.addAttribute("empVO", transformEmpVO(empDO));
+        }
         List<DeptDO> deptDOs = deptService.getAll();
         model.addAttribute("deptVOs", transformDeptVOs(deptDOs));
-        model.addAttribute("empVO", transformEmpVO(empDO));
         return "emp/update";
     }
 

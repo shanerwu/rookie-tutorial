@@ -1,44 +1,47 @@
 package org.tutorial.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tutorial.dao.EmpDAO;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.model.entity.EmpDO;
+import org.tutorial.repository.EmpRepository;
 import org.tutorial.service.EmpService;
 
 @Service
 public class EmpServiceImpl implements EmpService {
 
     @Autowired
-    private EmpDAO dao;
+    private EmpRepository repository;
 
     @Override
+    @Transactional
     public EmpDO addEmp(EmpDO empDO) {
-        dao.insert(empDO);
-        return empDO;
+        return repository.save(empDO);
     }
 
     @Override
+    @Transactional
     public EmpDO updateEmp(EmpDO empDO) {
-        dao.update(empDO);
-        return dao.findByPrimaryKey(empDO.getEmpno());
+        return repository.save(empDO);
     }
 
     @Override
+    @Transactional
     public void deleteEmp(Integer empno) {
-        dao.delete(empno);
+        repository.deleteById(empno);
     }
 
     @Override
-    public EmpDO getOneEmp(Integer empno) {
-        return dao.findByPrimaryKey(empno);
+    public Optional<EmpDO> getOneEmp(Integer empno) {
+        return repository.findById(empno);
     }
 
     @Override
     public List<EmpDO> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
 }

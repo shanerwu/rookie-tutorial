@@ -21,4 +21,7 @@ Tutorial made for my junior colleague
 2. Replace Servlet with Spring MVC Controller
 
 #### Practice 4 - Thymeleaf
-1. Replace JSP  with Thymeleaf
+1. Replace JSP with Thymeleaf
+
+#### Practice 5 - Spring Boot & Spring Data JPA
+1. Replace Spring & JPA with Spring Boot & Spring Data JPA

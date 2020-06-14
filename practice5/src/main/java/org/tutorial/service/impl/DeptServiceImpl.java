@@ -1,44 +1,55 @@
 package org.tutorial.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.tutorial.dao.DeptDAO;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.model.entity.DeptDO;
 import org.tutorial.model.entity.EmpDO;
+import org.tutorial.repository.DeptRepository;
 import org.tutorial.service.DeptService;
 
 @Service
 public class DeptServiceImpl implements DeptService {
 
     @Autowired
-    private DeptDAO dao;
+    private DeptRepository repository;
 
     @Override
     public List<DeptDO> getAll() {
-        return dao.getAll();
+        return repository.findAll();
     }
 
     @Override
-    public DeptDO getOneDept(Integer deptno) {
-        return dao.findByPrimaryKey(deptno);
+    public Page<DeptDO> getAllPages(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
+    public Optional<DeptDO> getOneDept(Integer deptno) {
+        return repository.findById(deptno);
+    }
+
+    @Override
+    @Transactional
     public DeptDO update(DeptDO deptDO) {
-        dao.update(deptDO);
-        return dao.findByPrimaryKey(deptDO.getDeptno());
+        return repository.save(deptDO);
     }
 
     @Override
     public List<EmpDO> getEmpsByDeptno(Integer deptno) {
-        return dao.getEmpsByDeptno(deptno);
+        DeptDO deptDO = repository.getOneDeptWithEmps(deptno);
+        return deptDO.getEmpDOs();
     }
 
     @Override
+    @Transactional
     public void deleteDept(Integer deptno) {
-        dao.delete(deptno);
+        repository.deleteById(deptno);
     }
 
 }

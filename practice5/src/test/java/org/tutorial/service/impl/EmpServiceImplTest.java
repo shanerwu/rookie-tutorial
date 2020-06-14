@@ -1,4 +1,4 @@
-package org.tutorial.dao.impl;
+package org.tutorial.service.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,70 +9,68 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.tutorial.config.TestConfig;
-import org.tutorial.dao.EmpDAO;
+import org.tutorial.TutorialTestApplication;
 import org.tutorial.model.entity.DeptDO;
 import org.tutorial.model.entity.EmpDO;
+import org.tutorial.service.EmpService;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
-@ActiveProfiles("test")
-public class EmpDAOImplTest {
+@SpringBootTest(classes = TutorialTestApplication.class)
+public class EmpServiceImplTest {
 
     @Autowired
-    private EmpDAO dao;
+    private EmpService service;
 
     @Test
-    public void insert() {
+    public void addEmp() {
         EmpDO empDO = new EmpDO();
         empDO.setEname("王小明1");
         empDO.setJob("manager");
         empDO.setHiredate(LocalDate.parse("2020-04-01"));
-        empDO.setSal(new Double(50000));
-        empDO.setComm(new Double(500));
+        empDO.setSal(50000d);
+        empDO.setComm(500d);
         DeptDO deptDO = new DeptDO();
         deptDO.setDeptno(10);
         empDO.setDeptDO(deptDO);
-        dao.insert(empDO);
-        assertTrue(true);
+        service.addEmp(empDO);
     }
 
     @Test
-    public void update() {
+    public void updateEmp() {
         EmpDO empDO = new EmpDO();
         empDO.setEmpno(7002);
         empDO.setEname("王小明2");
         empDO.setJob("manager2");
         empDO.setHiredate(LocalDate.parse(("2020-04-01")));
-        empDO.setSal(new Double(20000));
-        empDO.setComm(new Double(200));
+        empDO.setSal(20000d);
+        empDO.setComm(200d);
         DeptDO deptDO = new DeptDO();
         deptDO.setDeptno(20);
         empDO.setDeptDO(deptDO);
-        dao.update(empDO);
+        service.updateEmp(empDO);
         assertTrue(true);
     }
 
     @Test
-    public void delete() {
-        dao.delete(7014);
+    public void deleteEmp() {
+        service.deleteEmp(7014);
         assertTrue(true);
     }
 
     @Test
-    public void findByPrimaryKey() {
-        EmpDO empDO = dao.findByPrimaryKey(7001);
-        assertEquals(Integer.valueOf(7001), empDO.getEmpno());
-        assertEquals("king", empDO.getEname());
-        assertEquals("president", empDO.getJob());
+    public void getOneEmp() {
+        service.getOneEmp(7001).ifPresent(empDO -> {
+            assertEquals(Integer.valueOf(7001), empDO.getEmpno());
+            assertEquals("king", empDO.getEname());
+            assertEquals("president", empDO.getJob());
+        });
     }
 
     @Test
     public void getAll() {
-        List<EmpDO> list = dao.getAll();
+        List<EmpDO> list = service.getAll();
         for (EmpDO empDO : list) {
             System.out.print(empDO.getEmpno() + ",");
             System.out.print(empDO.getEname() + ",");
@@ -84,5 +82,4 @@ public class EmpDAOImplTest {
             System.out.println();
         }
     }
-
 }

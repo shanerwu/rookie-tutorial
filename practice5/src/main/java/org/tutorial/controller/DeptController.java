@@ -2,6 +2,7 @@ package org.tutorial.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -52,9 +53,11 @@ public class DeptController {
 
     @PostMapping("/dept/getOne_For_Update_Dept")
     public String getOneForUpdate(Model model, Integer deptno) {
-        DeptDO deptDO = deptService.getOneDept(deptno);
-        DeptVO deptVO = transformDeptVO(deptDO);
-        model.addAttribute("deptVO", deptVO);
+        Optional<DeptDO> optional = deptService.getOneDept(deptno);
+        if (optional.isPresent()) {
+            DeptVO deptVO = transformDeptVO(optional.get());
+            model.addAttribute("deptVO", deptVO);
+        }
         return "dept/update";
     }
 
