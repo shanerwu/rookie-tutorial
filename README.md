@@ -3,6 +3,7 @@
 Tutorial made for my junior colleague
 * [Rookie orientation manual](https://hackmd.io/@zS7uqLwdSQ6iObiiEyu5JQ/BJbLNmkv8/https%3A%2F%2Fhackmd.io%2FDgBDMA3pRsOjIjdhWhkVbQ)
 
+### Basic Practice
 #### Practice 0 - Setup
 1. Pull db image from Docker Hub & run container
 2. Run template project, make sure it's working
@@ -25,3 +26,8 @@ Tutorial made for my junior colleague
 
 #### Practice 5 - Spring Boot & Spring Data JPA
 1. Replace Spring & JPA with Spring Boot & Spring Data JPA
+
+### Advanced Practice
+#### Practice - Spring Boot + Spring Data JPA + ZK + Web Service
+* Build two projects: Car Catalog Website & Car Sale Website
+* Communicate with Web Service
