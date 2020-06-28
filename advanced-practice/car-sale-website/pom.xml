@@ -19,7 +19,7 @@
         <ojdbc7.version>12.2.0.1</ojdbc7.version>
         <zk.version>9.0.0.1-Eval</zk.version>
         <zkspringboot.version>2.3.1</zkspringboot.version>
-        <hibernate-validator.version>5.2.1.Final</hibernate-validator.version>
+        <hibernate-validator.version>5.3.5.Final</hibernate-validator.version>
         <cxf.version>3.2.0</cxf.version>
     </properties>
 
