@@ -1,0 +1,67 @@
+<window title="新增車輛" width="750px" border="normal" contentStyle="overflow:auto;"
+        mode="modal" visible="@load(vm.showInsertDialog)"
+        form="@id('insert') @load(vm.newCar) @save(vm.newCar, before='insert')
+              @validator('org.car.catalog.viewmodel.FormValidator')">
+    <listbox height="450px" style="margin-top:10px">
+        <listhead>
+            <listheader label="項目" hflex="1"/>
+            <listheader label="內容" hflex="2"/>
+        </listhead>
+        <listitem>
+            <listcell>
+                <label value="Model"/>
+            </listcell>
+            <listcell>
+                <textbox id="model" value="@bind(insert.model)" width="350px"/>
+                <separator/>
+                <label value="@load(vmsgs['modelError'])" style="color:red"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Make"/>
+            </listcell>
+            <listcell>
+                <textbox id="make" value="@bind(insert.make)" width="350px"/>
+                <separator/>
+                <label value="@load(vmsgs['makeError'])" style="color:red"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Prices"/>
+            </listcell>
+            <listcell>
+                <intbox id="price" value="@bind(insert.price)" width="350px"/>
+                <separator/>
+                <label value="@load(vmsgs['priceError'])" style="color:red"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Amount"/>
+            </listcell>
+            <listcell>
+                <intbox id="amount" value="@bind(insert.amount)" width="350px"/>
+                <separator/>
+                <label value="@load(vmsgs['amountError'])" style="color:red"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Description"/>
+            </listcell>
+            <listcell>
+                <textbox id="description" value="@bind(insert.description)" rows="6" width="350px"/>
+                <separator/>
+                <label value="@load(vmsgs['descriptionError'])" style="color:red"/>
+            </listcell>
+        </listitem>
+    </listbox>
+    <div align="center" style="margin-top:20px">
+        <hlayout>
+            <button label="儲存" onClick="@command('insert')"/>
+            <button label="關閉" onClick="@command('closeInsertDialog')"/>
+        </hlayout>
+    </div>
+</window>

@@ -1,0 +1,61 @@
+<window title="訂購車輛" width="750px" border="normal" contentStyle="overflow:auto;"
+        mode="modal" visible="@load(vm.showOrderDialog)">
+    <listbox height="450px" style="margin-top:10px">
+        <listhead>
+            <listheader label="項目" hflex="1"/>
+            <listheader label="內容" hflex="2"/>
+        </listhead>
+        <listitem>
+            <listcell>
+                <label value="Model"/>
+            </listcell>
+            <listcell>
+                <label value="@load(vm.selectedOrderCar.model)" style="font-weight:bold"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Make"/>
+            </listcell>
+            <listcell>
+                <label value="@load(vm.selectedOrderCar.make)" style="font-weight:bold"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Prices"/>
+            </listcell>
+            <listcell>
+                <label value="@load(vm.selectedOrderCar.price)" style="font-weight:bold"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Description"/>
+            </listcell>
+            <listcell>
+                <label value="@load(vm.selectedOrderCar.description)"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+                <label value="Amount"/>
+            </listcell>
+            <listcell>
+                <combobox id="orderAmounts" width="150px"
+                          model="@load(vm.orderAmounts)"
+                          selectedItem="@bind(vm.orderAmount)">
+                    <template name="model">
+                        <comboitem label="@load(each)"/>
+                    </template>
+                </combobox>
+            </listcell>
+        </listitem>
+    </listbox>
+    <div align="center" style="margin-top:20px">
+        <hlayout>
+            <button label="訂購" onClick="@command('order')"/>
+            <button label="關閉" onClick="@command('closeOrderDialog')"/>
+        </hlayout>
+    </div>
+</window>
