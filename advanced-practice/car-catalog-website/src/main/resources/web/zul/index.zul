@@ -1,0 +1,65 @@
+<?page title="汽車型錄" contentType="text/html;charset=UTF-8"?>
+<window title="汽車型錄網站" width="750px" border="normal" apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('org.car.catalog.viewmodel.ManagementViewModel')"
+        validationMessages="@id('vmsgs')">
+    <hbox align="center">
+        Keyword:
+        <textbox value="@bind(vm.keyword)"/>
+        <button label="Search" image="/img/search.png" onClick="@command('search')"/>
+        <button label="Add Car" onClick="@command('showInsertDialog')"/>
+    </hbox>
+    <listbox height="220px" model="@bind(vm.carList)" emptyMessage="No car found in the result"
+             selectedItem="@bind(vm.selectedCar)" style="margin-top:10px">
+        <listhead>
+            <listheader label="Id" hflex="1"/>
+            <listheader label="Model" hflex="2"/>
+            <listheader label="Make" hflex="2"/>
+            <listheader label="Price" hflex="2"/>
+            <listheader label="Amount" hflex="1"/>
+        </listhead>
+        <template name="model">
+            <listitem>
+                <listcell label="@bind(each.id)"/>
+                <listcell label="@bind(each.model)"/>
+                <listcell label="@bind(each.make)"/>
+                <listcell>$
+                    <label value="@bind(each.price)"/>
+                </listcell>
+                <listcell label="@bind(each.amount)"/>
+            </listitem>
+        </template>
+    </listbox>
+    <paging detailed="true" totalSize="@load(vm.totalSize)" pageSize="@load(vm.pageSize)"
+            activePage="@bind(vm.activePage)" onClick="@command('search')"/>
+    <hbox style="margin-top:20px" visible="@bind(not empty vm.selectedCar)">
+        <image src="@bind(vm.selectedCar.photo)" style="padding:10px"/>
+        <vbox>
+            <hlayout>
+                Id :
+                <label value="@bind(vm.selectedCar.id)" style="font-weight:bold"/>
+            </hlayout>
+            <hlayout>
+                Model :
+                <label value="@bind(vm.selectedCar.model)" style="font-weight:bold"/>
+            </hlayout>
+            <hlayout>
+                Make :
+                <label value="@bind(vm.selectedCar.make)" style="font-weight:bold"/>
+            </hlayout>
+            <hlayout>
+                Price :
+                <span>$
+                    <label value="@bind(vm.selectedCar.price)" style="font-weight:bold"/>
+                </span>
+            </hlayout>
+            <hlayout>
+                Amount :
+                <span>
+                    <label value="@bind(vm.selectedCar.amount)" style="font-weight:bold"/>
+                </span>
+            </hlayout>
+            <label value="@bind(vm.selectedCar.description)"/>
+        </vbox>
+    </hbox>
+    <include src="~./zul/insert.zul" />
+</window>

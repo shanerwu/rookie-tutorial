@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /car-catalog-website
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:carcatalogdb;MODE=Oracle
+    username: sa1
+    password: 123456
+    data:
+      - classpath:sql/data.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    # create, create-drop, update, [none]
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+zk:
+  homepage: zul/index
