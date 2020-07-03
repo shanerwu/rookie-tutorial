@@ -4,6 +4,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+import org.car.catalog.annotation.LogInfo;
 import org.car.catalog.domain.param.OrderCarParam;
 import org.car.catalog.domain.result.Car;
 import org.car.catalog.domain.result.OrderCarResult;
@@ -17,10 +18,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
 @WebService(name = "CarCatalogWebService", serviceName = "CarCatalogWebService",
         portName = "CarCatalogWebServicePort", targetNamespace = "http://service.car.catalog.org/"
 )
+@Slf4j
 public class CarCatalogWebServiceImpl implements CarCatalogWebService {
 
     @Autowired
@@ -28,6 +32,7 @@ public class CarCatalogWebServiceImpl implements CarCatalogWebService {
 
     @Override
     @WebMethod
+    @LogInfo
     public SearchCarResult search(@WebParam(name = "keyword") String keyword,
                                   @WebParam(name = "pageNumber") Integer pageNumber,
                                   @WebParam(name = "pageSize") Integer pageSize) {
@@ -47,8 +52,8 @@ public class CarCatalogWebServiceImpl implements CarCatalogWebService {
             boolean isSuccess = carService.updateCarAmount(orderCarParam.getId(), orderCarParam.getAmount());
             orderCarResult.setSuccess(isSuccess);
         } catch (Exception e) {
-            e.printStackTrace();
             orderCarResult.setSuccess(false);
+            log.error(e.getMessage(), e);
         }
         return orderCarResult;
     }
