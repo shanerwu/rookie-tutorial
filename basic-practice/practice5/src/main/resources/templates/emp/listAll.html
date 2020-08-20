@@ -1,8 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>全部員工資料</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/page.css}">
 </head>
 <body>
     <h3>所有員工資料</h3>
@@ -18,7 +19,7 @@
             <th>修改</th>
             <th>刪除</th>
         </tr>
-        <tr th:each="empVO:${empVOs}" align='center' valign='middle'>
+        <tr th:each="empVO:${page}" align='center' valign='middle'>
             <td th:text="${empVO.empno}"></td>
             <td th:text="${empVO.ename}"></td>
             <td th:text="${empVO.job}"></td>
@@ -40,6 +41,25 @@
         </tr>
     </table>
     <br />
+
+    <!-- 分頁-->
+    <div class="pagination">
+        <ul>
+            <li>
+                <a th:if="${page.hasPrevious()}" th:href="${requestUri} + '?pageNum=' + ${page.previousPageable().getPageNumber()}" th:text="上一頁"></a>
+                <a th:if="${!page.hasPrevious()}" th:text="上一頁"></a>
+            </li>
+            <li th:each="pageNum:${#numbers.sequence(0, page.getTotalPages() - 1)}">
+                <a th:if="${pageNum ne page.pageable.getPageNumber()}" th:href="${requestUri} + '?pageNum=' + ${pageNum}" th:text="${pageNum + 1}"></a>
+                <a th:if="${pageNum eq page.pageable.getPageNumber()}" th:href="${requestUri} + '?pageNum=' + ${pageNum}" th:text="${pageNum + 1}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+            </li>
+            <li>
+                <a th:if="${page.hasNext()}" th:href="${requestUri} + '?pageNum=' + ${page.nextPageable().getPageNumber()}" th:text="下一頁"></a>
+                <a th:if="${!page.hasNext()}" th:text="下一頁"></a>
+            </li>
+        </ul>
+    </div>
+
     <a th:href="@{/}">回首頁</a>
 </body>
 </html>

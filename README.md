@@ -26,6 +26,7 @@ Tutorial made for my junior colleague
 
 #### Practice 5 - Spring Boot & Spring Data JPA
 1. Replace Spring & JPA with Spring Boot & Spring Data JPA
+2. Add pagination
 
 ### Advanced Practice
 #### Practice - Spring Boot + Spring Data JPA + ZK + Web Service

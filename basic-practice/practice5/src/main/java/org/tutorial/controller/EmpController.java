@@ -9,11 +9,15 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.tutorial.model.entity.DeptDO;
 import org.tutorial.model.entity.EmpDO;
 import org.tutorial.model.vo.DeptVO;
@@ -31,9 +35,13 @@ public class EmpController {
     private DeptService deptService;
 
     @GetMapping("/emp/listAll")
-    public String listAll(Model model) {
-        List<EmpDO> empDOs = empService.getAll();
-        model.addAttribute("empVOs", transformEmpVOs(empDOs));
+    public String listAll(Model model,
+                          @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                          @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+        String requestUri = ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString();
+        Page<EmpVO> empVOs = empService.getAllPages(PageRequest.of(pageNum, pageSize)).map(this::transformEmpVO);
+        model.addAttribute("requestUri", requestUri);
+        model.addAttribute("page", empVOs);
         return "emp/listAll";
     }
 
@@ -94,12 +102,6 @@ public class EmpController {
     public String delete(Integer empno) {
         empService.deleteEmp(empno);
         return "redirect:/emp/listAll";
-    }
-
-    private List<EmpVO> transformEmpVOs(List<EmpDO> empDOs) {
-        return empDOs.stream()
-                .map(this::transformEmpVO)
-                .collect(Collectors.toList());
     }
 
     private List<DeptVO> transformDeptVOs(List<DeptDO> deptDOs) {
