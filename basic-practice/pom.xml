@@ -28,7 +28,7 @@
         <jstl.version>1.2</jstl.version>
         <servlet.version>3.1.0</servlet.version>
         <ojdbc7.version>12.2.0.1</ojdbc7.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <lombok.version>1.18.12</lombok.version>
     </properties>
