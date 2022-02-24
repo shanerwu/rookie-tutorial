@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <zk.version>9.0.0.1-Eval</zk.version>
+        <zk.version>9.6.0.1</zk.version>
         <zkspringboot.version>2.3.1</zkspringboot.version>
         <hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
         <cxf.version>3.2.0</cxf.version>
@@ -54,27 +54,6 @@
             <artifactId>zkspringboot-starter</artifactId>
             <type>pom</type>
             <version>${zkspringboot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.zkoss.zk</groupId>
-            <artifactId>zkmax</artifactId>
-            <version>${zk.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.zkoss.zk</groupId>
-            <artifactId>zkbind</artifactId>
-            <version>${zk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.zkoss.zk</groupId>
-            <artifactId>zuti</artifactId>
-            <version>${zk.version}</version>
         </dependency>
         <dependency>
             <groupId>org.zkoss.zk</groupId>
